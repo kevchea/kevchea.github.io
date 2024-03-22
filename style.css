@@ -1,0 +1,83 @@
+body {
+    background-color: #fff8f4;
+}
+h1 {
+    text-align: center;
+    font-size: 75px;
+    font-family: 'Lato', sans-serif;
+    margin-top: 10%;
+    color: white;
+}
+
+h2 {
+    text-align: center;
+    font-size: 35px;
+    font-family: 'Lato', sans-serif;
+    margin: 2%;
+    color: white;
+}
+
+
+h3 {
+    font-size: 25px;
+    font-family: 'Lato', sans-serif;
+    margin: 3%;
+    margin-left: 10%;
+    margin-right: 10%;
+    color: white;
+    text-align: left;
+}
+
+
+h4 {
+    font-size: 20px;
+    font-family: 'Lato', sans-serif;
+    margin-left: 10%;
+    margin-right: 10%;
+    color: black;
+    text-align: center;
+}
+
+p{
+    font-family: 'Lato', sans-serif;
+    font-size: 20px;
+    margin: 5%;
+}
+
+#wrapper {
+    display: flex;
+    justify-content: center;
+    padding: 2%;
+  }
+
+a:link, a:visited {
+    background-color: #5B8266;
+    color: hsl(0, 0%, 100%);
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+    justify-content: center;  
+    align-items: center;  
+    display:inline;
+    margin:20px;
+    border-radius: 10%;
+    font-size: 16px;
+    font-family: 'Lato', sans-serif;
+    padding: 20px;
+    box-shadow: #003835, ;
+}
+
+a:hover{
+    background-color: #3E6259;
+    color:white;
+    justify-content: center;  
+    align-items: center;  
+    display:inline;
+}
+
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+  }
