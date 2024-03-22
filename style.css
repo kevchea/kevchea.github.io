@@ -55,6 +55,7 @@ p{
     display: flex;
     justify-content: center;
     padding: 2%;
+    margin-left: 20px;
   }
 
 .home {
