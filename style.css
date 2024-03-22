@@ -8,15 +8,10 @@ body {
     justify-content: space-between;
 }
 
-p{
-    font-family: 'Lato', sans-serif;
-    font-size: 20px;
-    margin: 5%;
-}
-
 #wrapper {
     display: flex;
-    justify-content: center;
+    align-items: left;
+    justify-content: left;
     padding: 2%;
   }
 
