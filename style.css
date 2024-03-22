@@ -7,10 +7,6 @@ body {
     align-items: center;
     justify-content: space-between;
 }
-.home h3 {
-    color: #97D1FB;
-    text-decoration: none;
-}
 
 h1 {
     text-align: center;
@@ -61,6 +57,13 @@ p{
     padding: 2%;
   }
 
+.home {
+    white-space: nowrap; /* Prevents the text from wrapping */
+    text-decoration: none; /* Removes underline from the link */
+    color: #97D1FB;
+    display: inline; /* Ensures the h3 doesn't force a new line */
+    margin-right: 20px; /* Adjust as needed */
+}
 .tag {
     background-color: #5B8266;
     color: hsl(0, 0%, 100%);
