@@ -60,19 +60,34 @@ body {
     width: 260px;
 }
 
-/* Media query for smaller screens */
 @media (max-width: 768px) {
     .header {
-        justify-content: space-around; /* Distributes space around items evenly */
+        flex-wrap: wrap; /* Allows header items to wrap onto the next line if they don't fit */
+    }
+
+    .home {
+        flex: 0 0 100%; /* Makes the name take full width and not flex */
+        margin-bottom: 10px; /* Adds space between the name and the tags below */
+    }
+
+    .spacer {
+        display: none; /* Removes the spacer on smaller screens */
+    }
+
+    .wrapper {
+        display: flex;
+        justify-content: center; /* Centers the tags wrapper */
+        flex-wrap: wrap; /* Allows tags to wrap if they don't fit */
+        padding: 0;
+        margin: 0 auto; /* Centers the wrapper and ensures it doesn't take up more space than needed */
     }
 
     .tag {
-        margin: 0; /* Reduce margin for tags */
+        margin: 5px; /* Smaller margins for tags */
         padding: 8px 10px; /* Adjust padding to make tags smaller */
-        font-size: smaller; /* Adjust font size to ensure fit */
+        font-size: 14px; /* Smaller font size to ensure they fit */
+        flex: 0 0 auto; /* Don't allow the tags to grow or shrink */
     }
-
-    
 }
 
 h1 {
