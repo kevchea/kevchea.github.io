@@ -4,11 +4,13 @@ body {
 
 .header {
     display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 #wrapper {
     display: flex;
-    align-items: left;
+    align-items: center;
     justify-content: left;
     padding: 2%;
   }
