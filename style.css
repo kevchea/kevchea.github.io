@@ -84,22 +84,11 @@ body {
     width: 260px;
 }
 
-@media (max-width: 768px) {
-    .header {
-        padding: 5px; /* Smaller padding on the header */
-    }
+@media (max-width: 1024px) {
 
-    .home h6, .tag, .tagcontact {
-        font-size: 12px; /* Even smaller font size for very small screens */
-    }
-
-    .tag, .tagcontact {
+    .tagcontact {
         padding: 5px; /* Reduce padding to save space */
         margin: 2px; /* Reduce margin to save space */
-    }
-
-    /* If space is still an issue, consider hiding the least important tags */
-    .tag:not(:first-child), .tagcontact:not(:first-child) {
         display: none;
     }
 }
