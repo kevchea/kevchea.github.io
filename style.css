@@ -8,19 +8,22 @@ body {
     justify-content: space-between;
 }
 
-#wrapper {
-    display: flex;
+.wrapper {
+    display: left;
     align-items: center;
-    justify-content: left;
-    padding: 2%;
+    padding: 0%;
   }
+
 
 .home {
     white-space: nowrap; /* Prevents the text from wrapping */
     text-decoration: none; /* Removes underline from the link */
     color: #97D1FB;
     display: inline; /* Ensures the h3 doesn't force a new line */
-    margin-right: 20px; /* Adjust as needed */
+    text-align: left;
+    font-size: 26px;
+    font-family: 'Lato', sans-serif;
+    margin: 2%;
 }
 .tag {
     background-color: #5B8266;
@@ -51,4 +54,69 @@ body {
     margin-left: 10%; /* Indents the content towards the middle */
     text-align: left; /* Ensures content is left-aligned */
     color: white; /* Sets the text color to white, assuming you want to keep consistent with your site's theme */
+}
+
+.spacer {
+    width: 260px;
+}
+
+h1 {
+    text-align: center;
+    font-size: 32px;
+    font-family: 'Lato', sans-serif;
+    margin: 2%;
+    color: white;
+    
+}
+
+
+h2{
+    font-size: 20px;
+    font-family: 'Lato', sans-serif;
+    margin: 3%;
+    margin-left: 10%;
+    margin-right: 10%;
+    text-align: left;
+    font-weight: normal;
+
+}
+
+h3 {
+    font-size: 20px;
+    font-family: 'Lato', sans-serif;
+    margin-left: 10%;
+    margin-right: 10%;
+    text-align: center;
+}
+
+h6 {
+    white-space: nowrap; /* Prevents the text from wrapping */
+    text-decoration: none; /* Removes underline from the link */
+    color: #97D1FB;
+    display: inline; /* Ensures the h3 doesn't force a new line */
+    text-align: left;
+    font-size: 26px;
+    font-family: 'Lato', sans-serif;
+    margin: 2%;
+}
+
+.content-area {
+    display: flex;
+    align-items: center;
+    padding: 40px; /* Spacing around the content */
+    max-width: 1000px; /* Or your preferred width */
+    margin: auto; /* Center the content area if less than 100% width */
+}
+
+.text-section {
+    flex-grow: 1;
+    margin-right: 20px; /* Spacing between text and image */
+}
+
+.profile-pic {
+    width: 250px; /* Size of the image */
+    height: 250px; /* Maintain aspect ratio for a circle */
+    border-radius: 50%; /* Creates a circle shape */
+    object-fit: cover; /* Ensures the image covers the area without distortion */
+    border: 5px solid white; /* Optional: adds a border around the image */
 }
