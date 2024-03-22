@@ -8,13 +8,8 @@ body {
     justify-content: space-between;
 }
 .home h3 {
-    font-size: 25px;
-    font-family: 'Lato', sans-serif;
-    margin: 3%;
-    margin-left: 10%;
-    margin-right: 10%;
     color: #97D1FB;
-    text-align: left;
+    text-decoration: none;
 }
 
 h1 {
