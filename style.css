@@ -21,21 +21,23 @@ body {
     flex-grow: 1;
 }
 
-.tag:link, .tag:visited {
-    background-color: #5B8266;
-    color: hsl(0, 0%, 100%);
+.tag {
+    background-color: #5B8266; /* Green background */
+    color: hsl(0, 0%, 100%); /* White text */
     text-decoration: none;
-    display: inline-block;
-    text-align: center;
-    justify-content: center;  
-    align-items: center;  
-    display:inline;
-    margin:20px;
-    border-radius: 10%;
+    padding: 10px 20px; /* Spacing inside the links */
+    margin: 0 10px; /* Spacing between the links */
+    border-radius: 10px; /* Rounded corners */
     font-size: 16px;
     font-family: 'Lato', sans-serif;
-    padding: 20px;
-    box-shadow: #003835, ;
+    box-shadow: 2px 2px 2px #003835; /* Optional: Adds a shadow effect */
+    display: inline-block; /* Allows for padding and margin */
+    transition: background-color 0.3s; /* Optional: Smooth background color transition on hover */
+}
+
+.nav-link:hover {
+    background-color: #486b52; /* Darker green on hover */
+    text-decoration: none;
 }
 
 h1 {
