@@ -8,41 +8,6 @@ body {
     justify-content: space-between;
 }
 
-h1 {
-    text-align: center;
-    font-size: 75px;
-    font-family: 'Lato', sans-serif;
-    margin-top: 10%;
-    color: white;
-}
-
-h2 {
-    text-align: center;
-    font-size: 35px;
-    font-family: 'Lato', sans-serif;
-    margin: 2%;
-    color: white;
-}
-
-/* name */
-
-h3 {
-    font-size: 25px;
-    font-family: 'Lato', sans-serif;
-    margin: 3%;
-    margin-left: 10%;
-    margin-right: 10%;
-    color: #97D1FB;
-    text-align: left;
-}
-
-
-h4 {
-    font-size: 20px;
-    font-family: 'Lato', sans-serif;
-    color: white;
-}
-
 p{
     font-family: 'Lato', sans-serif;
     font-size: 20px;
