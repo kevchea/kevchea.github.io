@@ -59,10 +59,27 @@ body {
 .spacer {
     width: 260px;
 }
-
+/* Media query for screens smaller than 768px */
 @media (max-width: 768px) {
     .spacer {
-        width: 0px;
+        display: none; /* This completely removes the element from the flow */
+    }
+    .wrapper {
+        /* Adjust the .wrapper to take up the available space */
+        width: auto; /* Reset any fixed widths */
+        margin: 0 auto; /* Centering the .wrapper if necessary */
+        padding: 0; /* Adjust padding as needed */
+    }
+    /* Reset or adjust additional styles for your navigation links for mobile screens */
+    .tag {
+        display: block; /* Stack the links */
+        width: 100%; /* Full width */
+        margin: 5px 0; /* Space out the links */
+    }
+    /* Ensure your header layout adjusts as needed on mobile */
+    .header {
+        flex-direction: column; /* Stack header items */
+        align-items: center; /* Center items horizontally */
     }
 }
 
