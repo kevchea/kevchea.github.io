@@ -42,7 +42,31 @@ body {
     box-shadow: #003835, ;
 }
 
+.tagcontact {
+    background-color: #5B8266;
+    color: hsl(0, 0%, 100%);
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+    justify-content: center;  
+    align-items: center;  
+    display:inline;
+    margin:20px;
+    border-radius: 10%;
+    font-size: 16px;
+    font-family: 'Lato', sans-serif;
+    padding: 20px;
+    box-shadow: #003835, ;
+}
 .tag:hover{
+    background-color: #3E6259;
+    color:white;
+    justify-content: center;  
+    align-items: center;  
+    display:inline;
+}
+
+.tagcontact:hover{
     background-color: #3E6259;
     color:white;
     justify-content: center;  
@@ -61,32 +85,8 @@ body {
 }
 
 @media (max-width: 768px) {
-    .header {
-        flex-wrap: wrap; /* Allows header items to wrap onto the next line if they don't fit */
-    }
-
-    .home {
-        flex: 0 0 100%; /* Makes the name take full width and not flex */
-        margin-bottom: 10px; /* Adds space between the name and the tags below */
-    }
-
-    .spacer {
-        display: none; /* Removes the spacer on smaller screens */
-    }
-
-    .wrapper {
-        display: flex;
-        justify-content: center; /* Centers the tags wrapper */
-        flex-wrap: wrap; /* Allows tags to wrap if they don't fit */
-        padding: 0;
-        margin: 0 auto; /* Centers the wrapper and ensures it doesn't take up more space than needed */
-    }
-
-    .tag {
-        margin: 5px; /* Smaller margins for tags */
-        padding: 8px 10px; /* Adjust padding to make tags smaller */
-        font-size: 14px; /* Smaller font size to ensure they fit */
-        flex: 0 0 auto; /* Don't allow the tags to grow or shrink */
+    .tagcontact {
+        display: none; /* This will hide the 'Contact' tag on screens smaller than 768px */
     }
 }
 
