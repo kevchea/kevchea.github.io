@@ -4,8 +4,8 @@ body {
 
 .header {
     display: flex;
-    align-items: center;
-    justify-content: start;
+    align-items: center; /* Vertically aligns the items in the middle */
+    justify-content: start; /* Aligns items to the start of the container */
 }
 
 h1 {
@@ -55,15 +55,14 @@ p{
     display: flex;
     justify-content: center;
     padding: 2%;
-    margin-left: 2000px;
-}
+  }
 
 .home {
     white-space: nowrap; /* Prevents the text from wrapping */
     text-decoration: none; /* Removes underline from the link */
     color: #97D1FB;
     display: inline; /* Ensures the h3 doesn't force a new line */
-    margin-right: 300px; /* Adjust as needed */
+    margin-right: 20px; /* Adjust as needed */
 }
 .tag {
     background-color: #5B8266;
