@@ -88,6 +88,7 @@ p{
 }
 
 .content-area {
-    margin-left: 10%;
-    text-align: left;
+    margin-left: 10%; /* Indents the content towards the middle */
+    text-align: left; /* Ensures content is left-aligned */
+    color: white; /* Sets the text color to white, assuming you want to keep consistent with your site's theme */
 }
