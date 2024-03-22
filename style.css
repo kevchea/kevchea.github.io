@@ -81,7 +81,7 @@ p{
     box-shadow: #003835, ;
 }
 
-a:hover{
+.tag:hover{
     background-color: #3E6259;
     color:white;
     justify-content: center;  
@@ -89,9 +89,7 @@ a:hover{
     display:inline;
 }
 
-.center {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 50%;
-  }
+.content-area {
+    margin-left: 10%;
+    text-align: left;
+}
