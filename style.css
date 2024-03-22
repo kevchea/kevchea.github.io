@@ -59,19 +59,20 @@ body {
 .spacer {
     width: 260px;
 }
-/* Media query for screens smaller than 768px */
+
+/* Media query for smaller screens */
 @media (max-width: 768px) {
     .header {
-        flex-direction: column; /* Stack header items vertically on small screens */
-        padding: 10px 0; /* Reduce padding */
+        justify-content: space-around; /* Distributes space around items evenly */
     }
 
     .tag {
-        width: 100%; /* Make tags full width */
-        margin-bottom: 10px; /* Add space between stacked items */
+        margin: 0; /* Reduce margin for tags */
+        padding: 8px 10px; /* Adjust padding to make tags smaller */
+        font-size: smaller; /* Adjust font size to ensure fit */
     }
 
-    /* Add any additional styling needed for smaller screens */
+    
 }
 
 h1 {
