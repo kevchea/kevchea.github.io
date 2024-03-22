@@ -4,8 +4,8 @@ body {
 
 .header {
     display: flex;
-    align-items: center; /* Aligns items vertically in the center */
-    justify-content: flex-start; /* Aligns items to the start of the container */
+    align-items: center;
+    justify-content: space-between;
 }
 
 h1 {
@@ -62,7 +62,7 @@ p{
     text-decoration: none; /* Removes underline from the link */
     color: #97D1FB;
     display: inline; /* Ensures the h3 doesn't force a new line */
-    margin-right: auto; /* This pushes everything else to the right */
+    margin-right: 20px; /* Adjust as needed */
 }
 .tag {
     background-color: #5B8266;
