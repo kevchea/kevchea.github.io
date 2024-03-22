@@ -55,7 +55,7 @@ p{
     display: flex;
     justify-content: center;
     flex-grow: 1; /* Takes up the remaining space */
-    margin-left: calc(20px + 5%); /* Adjust this calculation to push the links more to the left */
+    margin-left: 600px; /* Adjust this calculation to push the links more to the left */
     margin-right: 20px; /* Ensures some space on the right */
 }
 
