@@ -60,6 +60,12 @@ body {
     width: 260px;
 }
 
+@media (max-width: 768px) {
+    .spacer {
+        width: auto; /* or you could use width: 0; depending on your needs */
+    }
+}
+
 h1 {
     text-align: center;
     font-size: 32px;
