@@ -55,8 +55,7 @@ p{
     display: flex;
     justify-content: center;
     padding: 2%;
-    margin-left: 200px;
-  }
+}
 
 .home {
     white-space: nowrap; /* Prevents the text from wrapping */
