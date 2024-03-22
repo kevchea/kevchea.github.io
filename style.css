@@ -5,7 +5,7 @@ body {
 .header {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: start;
 }
 
 h1 {
@@ -54,7 +54,8 @@ p{
 #wrapper {
     display: flex;
     justify-content: center;
-    flex-grow: 1;
+    padding: 2%;
+    margin-left: 200px;
   }
 
 .home {
@@ -62,7 +63,7 @@ p{
     text-decoration: none; /* Removes underline from the link */
     color: #97D1FB;
     display: inline; /* Ensures the h3 doesn't force a new line */
-    flex: 1;
+    margin-right: 20px; /* Adjust as needed */
 }
 .tag {
     background-color: #5B8266;
