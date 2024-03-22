@@ -62,7 +62,7 @@ body {
 
 @media (max-width: 768px) {
     .spacer {
-        width: auto; /* or you could use width: 0; depending on your needs */
+        width: 0px;
     }
 }
 
