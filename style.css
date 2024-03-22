@@ -10,18 +10,31 @@ body {
 .home h3 {
     font-size: 25px;
     font-family: 'Lato', sans-serif;
-    margin: 3%;
-    margin-left: 10%;
-    margin-right: 10%;
     color: #97D1FB;
-    text-align: left;
+    margin-right: auto;
 }
 
 #wrapper {
     display: flex;
     justify-content: center;
     padding: 2%;
-  }
+    flex-grow: 1;
+}
+
+.nav:link, .nav:visited {
+    background-color: #5B8266;
+    color: hsl(0, 0%, 100%);
+    text-decoration: none;
+    text-align: center;
+    align-items: center;  
+    display:inline;
+    margin:20px;
+    border-radius: 10%;
+    font-size: 16px;
+    font-family: 'Lato', sans-serif;
+    padding: 20px;
+    box-shadow: #003835, ;
+}
 
 h1 {
     text-align: center;
@@ -64,23 +77,6 @@ p{
     font-family: 'Lato', sans-serif;
     font-size: 20px;
     margin: 5%;
-}
-
-.nav:link, .nav:visited {
-    background-color: #5B8266;
-    color: hsl(0, 0%, 100%);
-    text-decoration: none;
-    display: inline-block;
-    text-align: center;
-    justify-content: center;  
-    align-items: center;  
-    display:inline;
-    margin:20px;
-    border-radius: 10%;
-    font-size: 16px;
-    font-family: 'Lato', sans-serif;
-    padding: 20px;
-    box-shadow: #003835, ;
 }
 
 a:hover{
