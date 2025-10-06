@@ -1,0 +1,277 @@
+body {
+    background-color:#111729;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.wrapper {
+    display: flex;
+    align-items: center;
+    padding: 0%;
+  }
+
+
+.home {
+    white-space: nowrap; /* Prevents the text from wrapping */
+    text-decoration: none; /* Removes underline from the link */
+    color: #97D1FB;
+    display: inline; /* Ensures the h3 doesn't force a new line */
+    text-align: left;
+    font-size: 26px;
+    font-family: 'Lato', sans-serif;
+    margin: 2%;
+}
+.tag {
+    background-color: #5B8266;
+    color: hsl(0, 0%, 100%);
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+    justify-content: center;  
+    align-items: center;  
+    display:inline;
+    margin:20px;
+    border-radius: 10%;
+    font-size: 16px;
+    font-family: 'Lato', sans-serif;
+    padding: 20px;
+    box-shadow: #003835, ;
+}
+
+.tagcontact {
+    background-color: #5B8266;
+    color: hsl(0, 0%, 100%);
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+    justify-content: center;  
+    align-items: center;  
+    display:inline;
+    margin:20px;
+    border-radius: 10%;
+    font-size: 16px;
+    font-family: 'Lato', sans-serif;
+    padding: 20px;
+    box-shadow: #003835, ;
+}
+.tag:hover{
+    background-color: #3E6259;
+    color:white;
+    justify-content: center;  
+    align-items: center;  
+    display:inline;
+}
+
+.tagcontact:hover{
+    background-color: #3E6259;
+    color:white;
+    justify-content: center;  
+    align-items: center;  
+    display:inline;
+}
+
+.content-area {
+    margin-left: 10%; /* Indents the content towards the middle */
+    text-align: left; /* Ensures content is left-aligned */
+    color: white; /* Sets the text color to white, assuming you want to keep consistent with your site's theme */
+}
+
+.spacer {
+    width: 260px;
+}
+
+@media (max-width: 1024px) {
+
+    .tagcontact {
+        padding: 5px; /* Reduce padding to save space */
+        margin: 2px; /* Reduce margin to save space */
+        display: none;
+    }
+}
+
+h1 {
+    text-align: center;
+    font-size: 32px;
+    font-family: 'Lato', sans-serif;
+    margin: 2%;
+    color: white;
+    
+}
+
+
+h2{
+    font-size: 20px;
+    font-family: 'Lato', sans-serif;
+    margin: 3%;
+    margin-left: 10%;
+    margin-right: 10%;
+    text-align: left;
+    color: white;
+    font-weight: normal;
+
+}
+
+h3 {
+    font-size: 20px;
+    font-family: 'Lato', sans-serif;
+    margin-left: 10%;
+    margin-right: 10%;
+    text-align: center;
+    color: white;
+    font-weight: normal;
+
+
+}
+
+h4 {
+    font-size: 24px;
+    font-family: 'Lato', sans-serif;
+    margin-left: 10%;
+    margin-right: 10%;
+    text-align: center;
+    color: white;
+
+}
+
+h5 {
+    white-space: nowrap; /* Prevents the text from wrapping */
+    text-decoration: none;
+    color: white;
+    display: inline; /* Ensures the h3 doesn't force a new line */
+    text-align: left;
+    font-size: 18px;
+    font-family: 'Lato', sans-serif;
+    margin: 2%;
+}
+
+h6 {
+    white-space: nowrap; /* Prevents the text from wrapping */
+    text-decoration: none; /* Removes underline from the link */
+    color: #97D1FB;
+    display: inline; /* Ensures the h3 doesn't force a new line */
+    text-align: left;
+    font-size: 26px;
+    font-family: 'Lato', sans-serif;
+    margin: 2%;
+}
+
+.content-area {
+    display: flex;
+    align-items: center;
+    padding: 40px; /* Spacing around the content */
+    max-width: 1000px; /* Or your preferred width */
+    margin: auto; /* Center the content area if less than 100% width */
+}
+
+.text-section {
+    flex-grow: 1;
+    margin-right: 20px; /* Spacing between text and image */
+}
+
+.circle {
+    width: 250px; /* Size of the image */
+    height: 250px; /* Maintain aspect ratio for a circle */
+    border-radius: 50%; /* Creates a circle shape */
+    object-fit: cover; /* Ensures the image covers the area without distortion */
+    border: 5px solid white; /* Optional: adds a border around the image */
+}
+
+.center {
+    width: 240px; /* Size of the image */
+    height: 240px; /* Maintain aspect ratio for a circle */
+    object-fit: cover; /* Ensures the image covers the area without distortion */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.blog {
+    width: 250px; /* Size of the image */
+    height: 250px; /* Maintain aspect ratio for a circle */
+    object-fit: cover; /* Ensures the image covers the area without distortion */
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: center;
+    align-items: center;
+    margin: 10px; /* Adds space around the images */
+
+}
+
+.blog-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* --- Added by ChatGPT: base tweaks for optional hamburger button --- */
+.menu-btn {
+    display: none;
+}
+
+
+/* --- Added by ChatGPT: responsive/mobile layout fixes --- */
+@media (max-width: 768px) {
+
+  /* Header + Nav */
+  .header { 
+    flex-wrap: wrap; 
+    gap: 8px; 
+    padding: 8px 12px;
+  }
+  .home { font-size: 22px; }
+  .wrapper { 
+    display: flex;           /* allow wrapping of nav items */
+    flex-wrap: wrap; 
+    gap: 8px;
+    width: 100%;
+    justify-content: center;
+  }
+  .tag, .tagcontact {
+    padding: 10px 14px;
+    margin: 4px;
+    border-radius: 12px;
+    font-size: 14px;
+  }
+  .spacer { width: 0; display: none; }
+
+  /* Content area stacks instead of side-by-side */
+  .content-area { 
+    flex-direction: column; 
+    align-items: center; 
+    padding: 20px;
+    margin: 0 auto; 
+  }
+  .text-section { 
+    margin: 0 0 16px 0; 
+  }
+
+  /* Images scale fluidly */
+  .circle {               /* keep circular avatars */
+    width: 60vw;
+    height: 60vw;         /* maintain circle by equal width/height */
+    max-width: 320px;
+    max-height: 320px;
+  }
+  .center, .blog {        /* rectangular media */
+    width: 90vw;
+    height: auto;         /* preserve aspect ratio */
+    border-radius: 12px;  /* small rounding looks nicer on mobile */
+  }
+
+  /* Text margins + alignment */
+  h2, h3, h4, h5 {
+    margin-left: 0;
+    margin-right: 0;
+    text-align: left;
+  }
+}
+
+@media (max-width: 480px) {
+  .home { font-size: 20px; }
+  .tag, .tagcontact { font-size: 13px; padding: 8px 12px; }
+  .circle { width: 70vw; height: 70vw; }
+}
