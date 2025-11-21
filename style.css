@@ -9,7 +9,7 @@ body {
 }
 
 .wrapper {
-    display: left;
+    display: flex;
     align-items: center;
     padding: 0%;
   }
@@ -82,15 +82,6 @@ body {
 
 .spacer {
     width: 260px;
-}
-
-@media (max-width: 1024px) {
-
-    .tagcontact {
-        padding: 5px; /* Reduce padding to save space */
-        margin: 2px; /* Reduce margin to save space */
-        display: none;
-    }
 }
 
 h1 {
@@ -205,4 +196,67 @@ h6 {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+}
+
+/* --- Added by ChatGPT: base tweaks for optional hamburger button --- */
+.menu-btn {
+    display: none;
+}
+
+
+/* --- Added by ChatGPT: responsive/mobile layout fixes --- */
+@media (max-width: 768px) {
+
+  /* Header + Nav */
+  .header { 
+    flex-wrap: wrap; 
+    gap: 8px; 
+    padding: 8px 12px;
+  }
+  .home { font-size: 22px; }
+  .wrapper { 
+    display: flex;           /* allow wrapping of nav items */
+    flex-wrap: wrap; 
+    gap: 8px;
+    width: 100%;
+    justify-content: center;
+  }
+  .spacer { width: 0; display: none; }
+
+  /* Content area stacks instead of side-by-side */
+  .content-area { 
+    flex-direction: column; 
+    align-items: center; 
+    padding: 20px;
+    margin: 0 auto; 
+  }
+  .text-section { 
+    margin: 0 0 16px 0; 
+  }
+
+  /* Images scale fluidly */
+  .circle {               /* keep circular avatars */
+    width: 60vw;
+    height: 60vw;         /* maintain circle by equal width/height */
+    max-width: 320px;
+    max-height: 320px;
+  }
+  .center, .blog {        /* rectangular media */
+    width: 90vw;
+    height: auto;         /* preserve aspect ratio */
+    border-radius: 12px;  /* small rounding looks nicer on mobile */
+  }
+
+  /* Text margins + alignment */
+  h2, h3, h4, h5 {
+    margin-left: 0;
+    margin-right: 0;
+    text-align: left;
+  }
+}
+
+@media (max-width: 480px) {
+  .home { font-size: 20px; }
+  .tag, .tagcontact { font-size: 13px; padding: 8px 12px; }
+  .circle { width: 70vw; height: 70vw; }
 }
