@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 const ITEMS = [
   { id: "about",   label: "ABOUT",      page: "about",   fontSize: 80, offsetX: 0,  offsetY: 0,  skew: -6,  skewY: 10  },
   { id: "resume",  label: "RESUME",        page: "resume",  fontSize: 66, offsetX: 20, offsetY: 8,  skew: -11, skewY: -10 },
-  { id: "sideproj",  label: "PROJECTS",   page: "projects",  fontSize: 68, offsetX: 8, offsetY: 6,  skew: 0, skewY: -4  },
+  { id: "projects",  label: "PROJECTS",   page: "projects",  fontSize: 68, offsetX: 8, offsetY: 6,  skew: 0, skewY: -4  },
   { id: "blogs", label: "BLOGS",       page: "blogs", fontSize: 74, offsetX: 16, offsetY: 8,  skew: -3,  skewY: 5   },
   { id: "github",label: "GITHUB LINK", link: "https://github.com/kevchea/kevchea2.github.io", fontSize: 56, offsetX: 10, offsetY: 6,  skew: -4,  skewY: 7   },
 ];

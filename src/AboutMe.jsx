@@ -17,6 +17,9 @@ import cam2 from "./assets/cat1.jpg";
 import cam3 from "./assets/yuki1.jpg";
 import cam0 from "./assets/static.gif";
 
+import char1 from "./assets/meicon.png";
+import char2 from "./assets/caticon.png";
+import char3 from "./assets/huskyicon.png";
 
 
 const CHARS = [char1, char2, char3];

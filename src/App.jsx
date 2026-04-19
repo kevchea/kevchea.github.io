@@ -2,7 +2,6 @@ import { Routes, Route, useLocation, useNavigate } from 'react-router-dom'
 import { AnimatePresence } from 'framer-motion'
 import background from "./assets/home.mp4";
 import Index from './Index'
-import VideoPage from './VideoPage'
 import ResumePage from './ResumePage'
 import PageTransition from './PageTransition'
 import Blogs from './Blogs'
@@ -34,7 +33,7 @@ function AnimatedRoutes() {
         <Route path="/blogs" element={
           <PageTransition variant="blogs"><Blogs /></PageTransition>} />
           <Route path="/projects" element={
-          <PageTransition variant="projects"><Blogs /></PageTransition>} />
+          <PageTransition variant="projects"><Projects /></PageTransition>} />
       </Routes>
     </AnimatePresence>
   )
