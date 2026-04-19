@@ -2,28 +2,70 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const ITEMS = [
-  { id: "i", badge: "I", title: "EDUCATION", subtitle: "University / Coursework", rank: 3 },
-  { id: "ii", badge: "II", title: "SKILLS", subtitle: "Frontend / Design / UI", rank: 4 },
-  { id: "iii", badge: "III", title: "PROJECTS", subtitle: "Featured Work", rank: 5 },
-  { id: "iv", badge: "IV", title: "EXPERIENCE", subtitle: "Internships / Roles", rank: 2 },
+  { id: "i", badge: "I", title: "EDUCATION", subtitle: "University / Coursework"},
+  { id: "ii", badge: "II", title: "EXPERIENCE", subtitle: "Internships / Roles"},
+  { id: "iii", badge: "III", title: "PROJECTS", subtitle: "Featured Work"},
+  { id: "iv", badge: "IV", title: "Skills", subtitle: "Proficiency"},
 ];
 
 const EDUCATION_ROWS = [
   { index: "01", title: "General Education", status: "Complete" },
-  { index: "02", title: "Computer Science Core", status: "In Progress" },
-  { index: "03", title: "Elective Track", status: "Queued" },
-  { index: "04", title: "Capstone Prep", status: "Pending" },
+  { index: "02", title: "Computer Engineering Core", status: "In Progress" },
+  { index: "03", title: "Elective Track", status: "Complete" },
+  { index: "04", title: "Senior Design", status: "In Progress" },
 ];
+
+const EXPERIENCE_ROWS = [
+  { index: "01", title: "Susquehanna International Group", status: "Systems Engineer" },
+  { index: "02", title: "The Vanguard Group", status: "DevOps Engineer" },
+  { index: "03", title: "Berkley Technology Services", status: "Automation Engineer" },
+];
+
+const EXPERIENCE_DETAILS = [
+  ["•	Supported and optimized enterprise-scale infrastructure by managing core platform services, ensuring high availability and reliability across trading, business, and testing systems", "•	Supported and optimized enterprise-scale infrastructure by managing core platform services, ensuring high availability and reliability across trading, business, and testing systems", "•	Collaborated with cross-functional teams, including developers and lines of business to configure, troubleshoot, monitor, and enhance performance of servers"],
+  ["•	Conducted research and completed foundational work for implementing OKTA SSO into API gateway, setting up the framework for an enhanced security transition from basic authorization", "•	Developed and documented new REST APIs and enhancements, incorporating Grafana dashboards and AWS CloudWatch logging for endpoint monitoring as well as Backstage updates to improve user experience", "•	Managed and maintained DataLake infrastructure for ServiceNow, ensuring data accuracy and efficient storage for large-scale ingestion of incident and service data"],
+  ["•	Built automation scripts in JavaScript to enhance workflows and data management in the ServiceNow platform", "•	Performed system enhancements and developments within the ServiceNow platform with user experience in mind", "•	Engaged with key stakeholders, effectively presenting system enhancement and developments", "•	Performed quality assurance testing and validation ensuring accuracy while adhering to version control practices"],
+];
+
+const PROJECT_ROWS = [
+  { index: "01", title: "Concrete Boat Design Prototype", status: "Lead CAD Designer" },
+  { index: "02", title: "(P)retty (S)imple (SH)ell", status: "Developer" },
+  { index: "03", title: "Huffman Coding Compression and Decompression", status: "Developer" },
+];
+
+const PROJECT_DETAILS = [
+  ["Collaborated with 4 other colleagues to propose boat designs and concrete mixes while distributing project roles. I developed a model boat and boat mold on SolidWorks as a prototype to be 3D printed and filled with our concrete mix to be tested"],
+  ["This is a command line interface similar to bash that is able to perform simple UNIX operations. Functionalities include but not limited to which, exit, single command with option input and output redirection, multiple pipelined commands with optional input and output redirection. Enhanced the basic shell further to support job control features using process groups, signals, and signal handlers. Implemented functionality for managing background and foreground jobs, suspending and resuming processes, sending signals, and tracking job statuses with built-in commands like jobs, fg, bg, and kill."],
+  ["Implemented a data compression algorithm using Huffman coding to optimize the storage and transmission of text data. Utilized binary trees and heap data structures to efficiently encode and decode based on symbol frequency, resulting in enhanced data processing efficiency."],
+];
+
+const SKILLS_ROWS = [
+  { index: "01", title: "Programming Languages", status: "" },
+  { index: "02", title: "Tools", status: "" },
+  { index: "03", title: "Languages", status: "" },
+];
+
+const SKILLS_DETAILS = [
+  ["Java, JavaScript, Python, C, MATLAB, Bash, VHDL, HTML, SQL, Powershell"],
+  ["ServiceNow, SolidWorks, Visual Studio Code, Coder, GitHub, BitBucket, Bamboo, AWS, Ansible, Grafana, Perforce, Swarm, Kibana, VMWare"],
+  ["English (Native), Khmer (Conversant), Chinese-Teochew (Basic)"],
+];
+
 
 export default function ResumePage({ src }) {
   const navigate = useNavigate();
   const [active, setActive] = useState(1);
   const [mounted, setMounted] = useState(false);
+  const [hoveredRow, setHoveredRow] = useState(null);
 
   useEffect(() => {
     const t = setTimeout(() => setMounted(true), 80);
     return () => clearTimeout(t);
   }, []);
+
+  useEffect(() => {
+    setHoveredRow(null);
+  }, [active]);
 
   useEffect(() => {
     const onKey = (e) => {
@@ -32,9 +74,21 @@ export default function ResumePage({ src }) {
       if (e.key === "ArrowLeft") navigate(-1);
       if (e.key === "Escape" || e.key === "Backspace") navigate(-1);
     };
+    const onWheel = (e) => {
+      if (Math.abs(e.deltaY) < 8) return;
+      setActive(i => {
+      if (e.deltaY < 0) return Math.max(0, i - 1);
+      return Math.min(ITEMS.length - 1, i + 1);
+      });
+    };
 
     window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
+    window.addEventListener("wheel", onWheel, { passive: true });
+
+    return () => {
+    window.removeEventListener("keydown", onKey);
+    window.removeEventListener("wheel", onWheel);
+    };
   }, [navigate]);
 
   return (
@@ -43,6 +97,7 @@ export default function ResumePage({ src }) {
       <div className="resume-entry-mask" aria-hidden="true">
         <video className="resume-entry-video" src={src} autoPlay loop muted playsInline />
       </div>
+      
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&display=swap');
 
@@ -194,21 +249,15 @@ export default function ResumePage({ src }) {
           margin-top: 2px;
           flex-shrink: 0;
         }
-        .resume-rank-label {
+        .resume-label {
           font-family: 'Bebas Neue', sans-serif;
           font-size: 28px;
           letter-spacing: 2px;
           color: #9ffbff;
           transition: color 0.22s ease;
         }
-        .resume-rank-number {
-          font-family: 'Anton', sans-serif;
-          font-size: 70px;
-          line-height: 0.82;
-          color: #9ffbff;
-          transition: color 0.22s ease;
-        }
-        .resume-card-wrap.active .resume-rank-label,
+        
+        .resume-card-wrap.active .resume-label,
         .resume-card-wrap.active .resume-rank-number {
           color: #000;
         }
@@ -304,6 +353,8 @@ export default function ResumePage({ src }) {
           margin-top: 18px;
         }
         .resume-detail-row {
+          position: relative;
+          pointer-events: auto;
           display: grid;
           grid-template-columns: 50px 1fr auto;
           align-items: center;
@@ -367,10 +418,79 @@ export default function ResumePage({ src }) {
           line-height: 1.15;
           color: #edfaff;
         }
+        @keyframes sc-arrow-left {
+          0%, 100% { transform: translateX(0); opacity: 1; }
+          50% { transform: translateX(-5px); opacity: 0.4; }
+        }
+
+        @keyframes sc-arrow-right {
+          0%, 100% { transform: translateX(0); opacity: 1; }
+          50% { transform: translateX(5px); opacity: 0.4; }
+        }
+        @keyframes sc-right-nav-pop {
+          0%   { opacity: 0; transform: scale(0.55) translateY(-10px); }
+          65%  { opacity: 1; transform: scale(1.1) translateY(2px); }
+          100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+       .sc-right-nav {
+          position: absolute;
+          top: 80vh;
+          left: 6vw;
+          display: flex;
+          align-items: center;
+          gap: 6px;
+          pointer-events: auto;
+          z-index: 14;
+          transform: translateX(-40px) rotate(-20deg);
+          transform-origin: left bottom;
+          animation: sc-right-nav-pop 0.38s cubic-bezier(0.22,1,0.36,1) both;
+        }
+        .sc-right-nav .sc-nav-btn {
+          font-family: 'Bebas Neue', sans-serif;
+          font-size: 100px;
+          letter-spacing: 3px;
+          line-height: 1;
+          user-select: none;
+          color: #fff;
+          -webkit-text-stroke: 2px #000;
+          paint-order: stroke fill;
+          background: none;
+          border: none;
+          padding: 0 6px;
+        }
+        .sc-right-nav .sc-nav-dot {
+          width: 16px;
+          height: 16px;
+          border-radius: 999px;
+          background: #111;
+          margin: 0 10px;
+          flex-shrink: 0;
+        }
+        .sc-right-nav .sc-nav-arrow {
+          font-family: 'Bebas Neue', sans-serif;
+          font-size: 22px;
+          color: #c4001a;
+          display: inline-block;
+          user-select: none;
+        }
+        .sc-right-nav .sc-nav-arrow.left  { animation: sc-arrow-left  0.8s ease-in-out infinite; }
+        .sc-right-nav .sc-nav-arrow.right { animation: sc-arrow-right 0.8s ease-in-out infinite; }
+
 
       `}</style>
 
       <div className="resume-overlay">
+        <div key={`nav-${active}`} className="sc-right-nav">
+          <span className="sc-nav-arrow left">◄</span>
+          <span
+            className="sc-nav-btn"
+            onClick={() => {navigate(-1);}
+          }
+          >
+            Back
+          </span>
+          <span className="sc-nav-arrow right">►</span>
+        </div>
         <div className="resume-stack">
           <div className={`resume-list-tag${mounted ? " mounted" : ""}`}>LIST</div>
           {ITEMS.map((item, index) => (
@@ -392,7 +512,7 @@ export default function ResumePage({ src }) {
                 <div className="resume-card-inner">
                   <div className="resume-title">{item.title}</div>
                   <div className="resume-rank">
-                    <div className="resume-rank-label">RANK</div>
+                    <div className="resume-label"></div>
                     <div className="resume-rank-number">{item.rank}</div>
                   </div>
                 </div>
@@ -407,9 +527,9 @@ export default function ResumePage({ src }) {
         {active === 0 && (
           <div className="resume-detail-panel">
             <div className="resume-detail-top">
-              <div className="resume-detail-top-index">01</div>
-              <div className="resume-detail-top-title">EDUCATION LOG</div>
-              <div className="resume-detail-top-progress">7/5</div>
+              <div className="resume-detail-top-index"></div>
+              <div className="resume-detail-top-title">Drexel University</div>
+              <div className="resume-detail-top-progress">2026</div>
             </div>
 
             <div className="resume-detail-list">
@@ -425,14 +545,127 @@ export default function ResumePage({ src }) {
             <div className="resume-detail-bottom">
               <div className="resume-detail-bottom-title">DETAILS</div>
               <div className="resume-detail-bullets">
-                <div className="resume-detail-bullet">- Maintain progress across required classes and supporting work.</div>
-                <div className="resume-detail-bullet">- Track portfolio-ready projects tied to coursework and labs.</div>
-                <div className="resume-detail-bullet">- Keep materials prepared for internships, research, and review.</div>
+                <div className="resume-detail-bullet">Initially, I percieved "jack of all trades, master of few" as a weakness of mine but overtime, I've come to realize that it's a strength which allows me to further explore interesting things and appreciate them beyond surface level</div>
+                <div className="resume-detail-bullet"></div>
+                <div className="resume-detail-bullet"></div>
               </div>
             </div>
           </div>
         )}
 
+        {active === 1 && (
+          <div className="resume-detail-panel">
+            <div className="resume-detail-top">
+              <div className="resume-detail-top-index"></div>
+              <div className="resume-detail-top-title">Experience</div>
+              <div className="resume-detail-top-progress"></div>
+            </div>
+
+            <div className="resume-detail-list">
+              {EXPERIENCE_ROWS.map((row, i) => (
+                <div
+                  className="resume-detail-row"
+                  key={row.index}
+                  onMouseEnter={() => setHoveredRow(i)}
+                >
+                  <div className="resume-detail-row-index">{row.index}</div>
+                  <div className="resume-detail-row-title">{row.title}</div>
+                  <div className="resume-detail-status">{row.status}</div>
+                </div>
+              ))}
+            </div>
+
+            <div className="resume-detail-bottom">
+              <div className="resume-detail-bottom-title">DETAILS</div>
+              <div className="resume-detail-bullets">
+                {(hoveredRow !== null
+                  ? EXPERIENCE_DETAILS[hoveredRow]
+                  : ["Hover over a role to see details"]
+                ).map((text, i) => (
+                  <div className="resume-detail-bullet" key={i}>
+                    {text}
+                  </div>
+                ))}
+              </div>
+            </div>
+        </div>
+        )}
+
+        {active === 2 && (
+          <div className="resume-detail-panel">
+            <div className="resume-detail-top">
+              <div className="resume-detail-top-index"></div>
+              <div className="resume-detail-top-title">Projects</div>
+              <div className="resume-detail-top-progress"></div>
+            </div>
+
+            <div className="resume-detail-list">
+              {PROJECT_ROWS.map((row, i) => (
+                <div
+                  className="resume-detail-row"
+                  key={row.index}
+                  onMouseEnter={() => setHoveredRow(i)}
+                >
+                  <div className="resume-detail-row-index">{row.index}</div>
+                  <div className="resume-detail-row-title">{row.title}</div>
+                  <div className="resume-detail-status">{row.status}</div>
+                </div>
+              ))}
+            </div>
+
+            <div className="resume-detail-bottom">
+              <div className="resume-detail-bottom-title">DETAILS</div>
+              <div className="resume-detail-bullets">
+                {(hoveredRow !== null
+                  ? PROJECT_DETAILS[hoveredRow]
+                  : ["Hover over a project to see details"]
+                ).map((text, i) => (
+                  <div className="resume-detail-bullet" key={i}>
+                    {text}
+                  </div>
+                ))}
+              </div>
+            </div>
+        </div>
+        )}
+
+        {active === 3 && (
+          <div className="resume-detail-panel">
+            <div className="resume-detail-top">
+              <div className="resume-detail-top-index"></div>
+              <div className="resume-detail-top-title">Skills</div>
+              <div className="resume-detail-top-progress"></div>
+            </div>
+
+            <div className="resume-detail-list">
+              {SKILLS_ROWS.map((row, i) => (
+                <div
+                  className="resume-detail-row"
+                  key={row.index}
+                  onMouseEnter={() => setHoveredRow(i)}
+                >
+                  <div className="resume-detail-row-index">{row.index}</div>
+                  <div className="resume-detail-row-title">{row.title}</div>
+                  <div className="resume-detail-status">{row.status}</div>
+                </div>
+              ))}
+            </div>
+
+            <div className="resume-detail-bottom">
+              <div className="resume-detail-bottom-title">Details</div>
+              <div className="resume-detail-bullets">
+                {(hoveredRow !== null
+                  ? SKILLS_DETAILS[hoveredRow]
+                  : ["Hover over a skill to see details"]
+                ).map((text, i) => (
+                  <div className="resume-detail-bullet" key={i}>
+                    {text}
+                  </div>
+                ))}
+              </div>
+            </div>
+        </div>
+        )}
       </div>
     </div>
   );

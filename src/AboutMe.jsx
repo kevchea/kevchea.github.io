@@ -1,72 +1,91 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import char1 from "./assets/char1.png";
-import char2 from "./assets/char2.png";
-import char3 from "./assets/char3.png";
-import bgVideo from "./assets/main1.mp4";
-import icon1 from "./assets/icon1.png";
-import icon2 from "./assets/icon2.png";
-import icon3 from "./assets/icon3.png";
-import mainm from "./assets/mainm.jpeg";
-import mainm2 from "./assets/mainm2.jpeg";
-import mainf from "./assets/mainf.jpeg";
+import bgVideo from "./assets/aboutme.mp4";
+import mainme from "./assets/profilepic.jpg";
+import phoneMods from "./assets/phoneMods.jpg";
+
+import maincat from "./assets/cat1.jpg";
+import cat2 from "./assets/cat2.jpg";
+
+import maindog from "./assets/yuki1.jpg";
+import dog2 from "./assets/yuki2.jpg";
+import dog3 from "./assets/yuki3.jpg";
+
+
+import cam1 from "./assets/profilepic.jpg";
+import cam2 from "./assets/cat1.jpg";
+import cam3 from "./assets/yuki1.jpg";
+import cam0 from "./assets/static.gif";
+
+
 
 const CHARS = [char1, char2, char3];
-const MAIN_IMAGES = [mainm, mainm2, mainf];
+const CAMERA_PREVIEWS = [cam1, cam2, cam3, cam0];
+const ABOUTME_IMAGES = [mainme, phoneMods];
+const CAT_IMAGES = [maincat, cat2];
+const DOG_IMAGES = [maindog, dog2, dog3];
+const REVEAL_IMAGE_SETS = [
+  ABOUTME_IMAGES,
+  CAT_IMAGES,
+  DOG_IMAGES,
+];
+
+
 
 const REVEAL_CONTENT = [
   {
-    upper: ["name moneybagg", "age:23"],
-    lower: "major: computer science",
+    upper: [
+      "I've always loved tinkering, so much to the point I started my own business doing repairs",
+      " and modifications to devices since junior high. I'm a hands on person.",
+      "but I still like developing hence why I'm in Computer Engineering.",
+    ],
+    lower: [
+      "I'm also a pretty competitive person which motivates me to want to do many different",
+      "things. My other hobbies include: Soccer, Skateboarding, and competitive eSports.",
+    ],
   },
   {
     upper: [
-      "Cleopatra lived closer to the Moon landing than to the building of the pyramids.",
-      "Vikings kept cats on ships for pest control (and vibes).",
-      "In medieval Europe, animals could be put on trial for crimes",
+      "This is Meow Meows! While my parents were on vacation in Canada, we decided to give this",
+      "lil guy a temp home as he was being bullied by the neighborhood strays. Since we had a husky,",
+      "my parents didn't want another pet but I was able to take care of Yuki and teach this guy how to",
+      "do his business in the toilet! My parents initially weren't happy quickly changed their minds :p"
     ],
-    lower: "abbove is some history fun fact",
+    lower: [
+      "We didn't plan to actually be able to keep him so his name was meows meows and it",
+      "and it stuck when my parents came back and liked the name LOL",
+    ],
   },
   {
     upper: [
-      "Oxford University founding is older than the Aztec Empire.",
-      "The shortest war in history lasted 38–45 minutes (Britain vs Zanzibar).",
-      "Humans have been writing for ~5,000 years",
+      "This is Yuki! I got him when he was 4 months old!",
+      "He's such a silly boy and literally did not stay this small for long at all",
+      "He loved playing tug of war and fetch",
     ],
-    lower: "yes it's a place holder",
+    lower: "sadly, he is no longer with us, he ran away into a creek and we never found him </3",
   },
 ];
 
 const ROLES = [
-  { text: "LEADER", color: "#e8c100", bg: "rgba(232,193,0,0.12)", border: "rgba(232,193,0,0.5)" },
-  { text: "PARTY",  color: "#4a8fff", bg: "rgba(74,143,255,0.12)", border: "rgba(74,143,255,0.5)" },
-  { text: "PARTY",  color: "#4a8fff", bg: "rgba(74,143,255,0.12)", border: "rgba(74,143,255,0.5)" },
+  { text: "", color: "#e8c100", bg: "rgba(232,193,0,0.12)", border: "rgba(232,193,0,0.5)" },
+  { text: "",  color: "#4a8fff", bg: "rgba(74,143,255,0.12)", border: "rgba(74,143,255,0.5)" },
+  { text: "",  color: "#4a8fff", bg: "rgba(74,143,255,0.12)", border: "rgba(74,143,255,0.5)" },
+  { text: "",  color: "#4a8fff", bg: "rgba(74,143,255,0.12)", border: "rgba(74,143,255,0.5)" },
+
 ];
 
 const ITEMS = [
   {
-    id: "twitch", label: "ABOUT ME", handle: "@yourname", href: "https://twitch.tv/yourname", icon: "🎮", barIcon: icon1, bars: 1, newBars: [0], counts: ["56"],
-    links: ["twitch.tv/videos/2041837265"],
-    stats: [
-      { tag: "FOL", value: "1.2K", color: "#9147ff" },
-      { tag: "VWR", value: "042",  color: "#bf94ff" },
-    ],
+    id: "1",
+    label: "About me"
   },
   {
-    id: "instagram", label: "FUN FACT ABOUT ME", handle: "@yourhandle", href: "https://instagram.com/yourhandle", icon: "📷", barIcon: icon2, bars: 5, newBars: [1, 2], counts: ["3.4M", "2.5M", "676K", "412K", "198K"],
-    links: ["instagram.com/p/C4xQmRrNk2a", "instagram.com/p/C3wLpBsOj7f", "instagram.com/reel/C2vKoArMi6e", "instagram.com/p/C1uJnZqLh5d", "instagram.com/reel/C0tImYpKg4c"],
-    stats: [
-      { tag: "FOL", value: "3.4K", color: "#e1306c" },
-      { tag: "PST", value: "128",  color: "#f77737" },
-    ],
+    id: "2",
+    label: "My lazy cat"
   },
   {
-    id: "tiktok", label: "WIRED FACT ABOUT ME", handle: "@yourhandle", href: "https://tiktok.com/@yourhandle", icon: "🎵", barIcon: icon3, bars: 7, newBars: [0, 3, 5, 6], counts: ["5.1M", "3.7M", "2.2M", "1.4M", "831K", "490K", "217K"],
-    links: ["tiktok.com/@yourhandle/video/7318492016374859054", "tiktok.com/@yourhandle/video/7305837261940183342", "tiktok.com/@yourhandle/video/7291046385720348974", "tiktok.com/@yourhandle/video/7278392047163820334", "tiktok.com/@yourhandle/video/7264819203847165742", "tiktok.com/@yourhandle/video/7251047382916430126", "tiktok.com/@yourhandle/video/7237294018463851822"],
-    stats: [
-      { tag: "FOL", value: "8.9K", color: "#00f2ea" },
-      { tag: "LKS", value: "52K",  color: "#ff0050" },
-    ],
+    id: "3",
+    label: "My Mischievious Husky"
   },
 ];
 
@@ -74,33 +93,100 @@ export default function AboutMe() {
   const [active, setActive]   = useState(0);
   const [mounted, setMounted] = useState(false);
   const [revealed, setRevealed] = useState(false);
+  const [paused, setPaused] = useState(false);
+  const [staticOn, setStatic] = useState(false);
+  const [revealImageIndex, setRevealImageIndex] = useState(0);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const t = setTimeout(() => setMounted(true), 60);
+    const t = setTimeout(() => setMounted(true), 3000);
     return () => clearTimeout(t);
   }, []);
 
   useEffect(() => {
-    const onKey = (e) => {
-      if (e.key === "ArrowUp") setActive(i => Math.max(0, i - 1));
-      if (e.key === "ArrowDown") setActive(i => Math.min(ITEMS.length - 1, i + 1));
-      if (e.key === "Enter") setRevealed(true);
-      if (e.key === "ArrowRight") setRevealed(true);
-      if (e.key === "ArrowLeft") {
-        if (revealed) setRevealed(false);
-        else navigate(-1);
-      }
-      if (e.key === "Escape" || e.key === "Backspace") navigate(-1);
+    setRevealImageIndex(0);
+  }, [active]);
+
+useEffect(() => {
+  const onKey = (e) => {
+    if (e.key === "ArrowUp") setActive(i => Math.max(0, i - 1));
+    if (e.key === "ArrowDown") setActive(i => Math.min(ITEMS.length - 1, i + 1));
+    if (e.key === "Enter") setRevealed(true), setPaused(true);
+    if (e.key === "ArrowRight") setRevealed(true), setPaused(true);
+    if (e.key === "ArrowLeft") {
+      if (revealed) setRevealed(false);
+      else navigate(-1);
+    }
+    if (e.key === "Escape" || e.key === "Backspace") navigate(-1);
+  };
+
+  const onWheel = (e) => {
+    if (Math.abs(e.deltaY) < 8) return;
+
+    setActive(i => {
+      if (e.deltaY < 0) return Math.max(0, i - 1);
+      return Math.min(ITEMS.length - 1, i + 1);
+    });
+  };
+
+  window.addEventListener("keydown", onKey);
+  window.addEventListener("wheel", onWheel, { passive: true });
+
+  return () => {
+    window.removeEventListener("keydown", onKey);
+    window.removeEventListener("wheel", onWheel);
+  };
+}, [navigate, revealed]);
+
+  useEffect(() => {
+    if (!paused || !revealed) return;
+
+    const handleAnywhereClick = () => {
+      setPaused(false);
+      setRevealed(false);
     };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [active, navigate, revealed]);
+
+    window.addEventListener("click", handleAnywhereClick);
+
+    return () => {
+      window.removeEventListener("click", handleAnywhereClick);
+    };
+  }, [paused, revealed]);
+
+  useEffect(() => {
+    setStatic(true);
+
+    const t = setTimeout(() => {
+      setStatic(false);
+    }, 100);
+
+    return () => clearTimeout(t);
+  }, [active]);
 
   return (
     <div id="menu-screen">
-      <video src={bgVideo} autoPlay loop muted playsInline />
+      <video src={bgVideo} autoPlay muted playsInline />
       {revealed && <div key={`dim-${active}`} className="sc-dim" />}
+        { (
+        <div key={`nav-${active}`} className="sc-right-nav">
+          <span className="sc-nav-arrow left">◄</span>
+          <span
+            className="sc-nav-btn"
+            onClick={() => {
+            if (revealed) {
+              setRevealed(false);
+              setPaused(false);
+            } else {
+              navigate(-1);
+              }
+            }
+          }
+          >
+            Back
+          </span>
+          <span className="sc-nav-arrow right">►</span>
+        </div>
+      )}
       {revealed && (
         <div key={`panel-${active}`} className={`sc-reveal-panel${mounted ? " mounted" : ""}`}>
           <div className="sc-reveal-upper-bar">
@@ -108,25 +194,43 @@ export default function AboutMe() {
               <div className="sc-reveal-upper-line" key={line}>{line}</div>
             ))}
           </div>
-          <div className="sc-reveal-lower-bar">{REVEAL_CONTENT[active].lower}</div>
+          <div className="sc-reveal-lower-bar">
+            {Array.isArray(REVEAL_CONTENT[active].lower)
+              ? REVEAL_CONTENT[active].lower.map((line) => (
+                  <div key={line}>{line}</div>
+                ))
+              : <div>{REVEAL_CONTENT[active].lower}</div>
+            }
+          </div>
         </div>
       )}
       {revealed && (
-        <div key={`nav-${active}`} className="sc-right-nav">
-          <span className="sc-nav-arrow left">◄</span>
-          <span className="sc-nav-btn">LB</span>
-          <span className="sc-nav-dot" />
-          <span className="sc-nav-btn">RB</span>
-          <span className="sc-nav-arrow right">►</span>
-        </div>
-      )}
-      {revealed && (
-        <div key={`portrait-${active}`} className={`sc-main-portrait-shell${mounted ? " mounted" : ""}`}>
+        <div
+          key={`portrait-${active}`}
+          className={`sc-main-portrait-shell${mounted ? " mounted" : ""}`}
+          onClick={(e) => {
+            e.stopPropagation();
+
+            const rect = e.currentTarget.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const currentSet = REVEAL_IMAGE_SETS[active];
+
+            if (x < rect.width / 2) {
+              setRevealImageIndex((prev) => (prev - 1 + currentSet.length) % currentSet.length);
+            } else {
+              setRevealImageIndex((prev) => (prev + 1) % currentSet.length);
+            }
+          }}
+        >
           <img
             className="sc-main-portrait"
-            src={MAIN_IMAGES[active]}
-            alt=""
+            src={REVEAL_IMAGE_SETS[active][revealImageIndex]}
           />
+        {/* LEFT ARROW */}
+        <span className="sc-portrait-arrow left">◄</span>
+
+        {/* RIGHT ARROW */}
+        <span className="sc-portrait-arrow right">►</span>
         </div>
       )}
       <style>{`
@@ -136,7 +240,7 @@ export default function AboutMe() {
           position: absolute;
           inset: 0;
           z-index: 6;
-          pointer-events: none;
+          pointer-events: auto;
           display: flex;
           flex-direction: column;
           align-items: flex-start;
@@ -211,7 +315,7 @@ export default function AboutMe() {
           top: 0;
           right: -3vw;
           z-index: 13;
-          pointer-events: none;
+          pointer-events: auto;
           width: 43vw;
           height: 100vh;
           overflow: hidden;
@@ -223,6 +327,30 @@ export default function AboutMe() {
           opacity: 0.96;
           transform: translateX(0) skewX(-8deg) scale(1);
           animation: sc-portrait-in 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        
+        .sc-portrait-arrow {
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          font-family: 'Bebas Neue', sans-serif;
+          font-size: 28px;
+          color: #c4001a;
+          z-index: 20;
+          pointer-events: none;
+          opacity: 0.9;
+        }
+
+        /* left side */
+        .sc-portrait-arrow.left {
+          left: 12px;
+          animation: sc-arrow-left 0.8s ease-in-out infinite;
+        }
+
+        /* right side */
+        .sc-portrait-arrow.right {
+          right: 60px;
+          animation: sc-arrow-right 0.8s ease-in-out infinite;
         }
 
         .sc-reveal-panel {
@@ -288,21 +416,24 @@ export default function AboutMe() {
           position: absolute;
           top: 58%;
           right: 0;
-          width: 48%;
-          height: 20%;
+          width: 100%;
+          height: 30%;
           background: rgba(0, 0, 0, 0.92);
           clip-path: polygon(0 0, 100% 0, calc(100% - 22px) 100%, 0 100%);
           box-shadow: 0 0 0 1px rgba(255,255,255,0.06);
           display: flex;
+          flex-direction: column;
           align-items: center;
-          justify-content: flex-start;
+          justify-content: center;
+          gap: 8px;
           color: #fff;
           font-family: 'Montserrat', sans-serif;
           font-weight: 300;
           font-size: 22px;
           letter-spacing: 0.4px;
           text-transform: lowercase;
-          padding-left: 22px;
+          padding: 0 22px;
+          text-align: center;
         }
 
         @keyframes sc-right-nav-pop {
@@ -335,14 +466,8 @@ export default function AboutMe() {
           background: none;
           border: none;
           padding: 0 6px;
-        }
-        .sc-right-nav .sc-nav-dot {
-          width: 16px;
-          height: 16px;
-          border-radius: 999px;
-          background: #111;
-          margin: 0 10px;
-          flex-shrink: 0;
+          pointer-events: auto;
+
         }
         .sc-right-nav .sc-nav-arrow {
           font-family: 'Bebas Neue', sans-serif;
@@ -375,6 +500,8 @@ export default function AboutMe() {
           clip-path: polygon(0 0, 100% 0, calc(100% - 14px) 100%, 0 100%);
           box-shadow: 0 6px 24px rgba(0,0,0,0.65);
           z-index: 1;
+            pointer-events: auto;
+
         }
 
         /* wrapper holds both the red underlay and the bar */
@@ -383,6 +510,8 @@ export default function AboutMe() {
           flex-shrink: 0;
           transform: translateX(-100%);
           transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+            pointer-events: none;
+
         }
         .sc-bar-outer.active .sc-bar     { height: 90px; }
         .sc-bar-outer.active .sc-bar-red { height: 90px; }
@@ -391,6 +520,7 @@ export default function AboutMe() {
         .sc-bar-outer:nth-child(2) { transition-delay: 80ms; }
         .sc-bar-outer:nth-child(3) { transition-delay: 160ms; }
 
+        
         /* red underlay — peeks out below the bar when active */
         .sc-bar-red {
           position: absolute;
@@ -609,43 +739,102 @@ export default function AboutMe() {
           border-radius: 3px;
           padding: 1px 6px; font-size: 11px;
         }
-      `}</style>
+        .sc-camera-screen {
+          position: absolute;
+          bottom: -142px;
+          right: 260px;
+          width: 460px;
+          height: 320px;
+          overflow: hidden;
+          transform: rotate(27deg) skewX(-4deg);
+          border-radius: 8px;
+            clip-path: polygon(2% 2%, 100% 24%, 100% 100%, 0% 100%);
 
-      <div className="sc-root" role="navigation">
+        }
+        .camera-img {
+          width: 120%;
+          height: 120%;
+          object-fit: cover;
+          transform: translate(-10%, -10%);
+        }
+      `}
+      </style>
+
+    {mounted && (
+      <div
+        style={{
+          position: "absolute",
+          top: "282px",
+          zIndex: 9999,
+          display: "flex",
+          flexDirection: "column",
+        }}
+      >
         {ITEMS.map((item, i) => (
-          <div
+          <button
             key={item.id}
-            className={`sc-bar-outer${active === i ? " active" : ""}${mounted ? " mounted" : ""}`}
-            onClick={() => {
-              setActive(i);
-            }}
             onMouseEnter={() => {
+              if (paused && revealed) return;
               setActive(i);
             }}
-          >
-            <div className="sc-bar-red" />
-            <div className="sc-bar">
-              <img className="sc-char" src={CHARS[i]} alt="" />
-              <div className="sc-bar-fill" />
-              <div className="sc-bar-shade" />
-              <div className="sc-bar-content">
-                <div className="sc-role">{ROLES[i].text}</div>
-                <div className="sc-main">
-                  <div className="sc-main-top">
-                    <div className="sc-label">{item.label}</div>
-                  </div>
+            onClick={(e) => {
+              e.stopPropagation();
+
+              if (paused) return;
+
+              setActive(i);
+              setRevealed(true);
+              setPaused(true);
+            }}
+            style={{
+              width: "45vw",
+              height: "86px",
+              background: "transparent",
+              border: "none",
+              cursor: paused ? "default" : "pointer",
+            }}
+          />
+        ))}
+      </div>
+    )}
+
+    <div className="sc-root" role="navigation">
+      {ITEMS.map((item, i) => (
+        <div
+          key={item.id}
+          className={`sc-bar-outer${active === i ? " active" : ""}${mounted ? " mounted" : ""}`}
+        >
+          <div className="sc-bar-red" />
+          <div className="sc-bar">
+            <img className="sc-char" src={CHARS[i]} alt="" />
+            <div className="sc-bar-fill" />
+            <div className="sc-bar-shade" />
+            <div className="sc-bar-content">
+              <div className="sc-role">{ROLES[i].text}</div>
+              <div className="sc-main">
+                <div className="sc-main-top">
+                  <div className="sc-label">{item.label}</div>
                 </div>
               </div>
             </div>
           </div>
-        ))}
-      </div>
+        </div>
+      ))}
+    </div>
 
-      <div className={`sc-footer${mounted ? " mounted" : ""}`}>
-        <div className="sc-footer-row"><span className="sc-footer-key">↑↓</span><span>SELECT</span></div>
-        <div className="sc-footer-row"><span className="sc-footer-key">↵</span><span>REVEAL</span></div>
-        <div className="sc-footer-row"><span className="sc-footer-key">ESC</span><span>BACK</span></div>
-      </div>
+    {mounted && (
+    <div className="sc-camera-screen">
+      <img
+        src={staticOn ? CAMERA_PREVIEWS[3] : CHARS[active]}
+        className="camera-img"
+      />
+    </div>
+    )}
+    <div className={`sc-footer${mounted ? " mounted" : ""}`}>
+      <div className="sc-footer-row"><span className="sc-footer-key">↑↓</span><span>SELECT</span></div>
+      <div className="sc-footer-row"><span className="sc-footer-key">↵</span><span>REVEAL</span></div>
+      <div className="sc-footer-row"><span className="sc-footer-key">ESC</span><span>BACK</span></div>
+    </div>
     </div>
   );
 }

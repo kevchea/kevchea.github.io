@@ -61,7 +61,7 @@ function AboutTransition() {
 }
 
 
-function SocialsTransition() {
+function BlogsTransition() {
   const stripes = [
     { color: "#00184c", left: "72vw", width: "24vw", delay: 0 },
     { color: "#00dff7", left: "80vw", width: "14vw", delay: 0.06 },
@@ -97,7 +97,7 @@ function SocialsTransition() {
 function TransitionOverlay({ variant }) {
   if (variant === "about") return <AboutTransition />;
   if (variant === "resume") return <ResumeTransition />;
-  if (variant === "socials") return <SocialsTransition />;
+  if (variant === "blogs") return <BlogsTransition />;
   return <DefaultTransition />;
 }
 

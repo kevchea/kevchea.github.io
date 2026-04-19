@@ -1,12 +1,13 @@
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom'
 import { AnimatePresence } from 'framer-motion'
-import background from "./assets/main1.mp4";
-import P3Menu from './P3Menu'
+import background from "./assets/home.mp4";
+import Index from './Index'
 import VideoPage from './VideoPage'
 import ResumePage from './ResumePage'
 import PageTransition from './PageTransition'
-import Socials from './Socials'
+import Blogs from './Blogs'
 import AboutMe from './AboutMe'
+import Projects from './Projects'
 import './App.css'
 
 function MenuScreen() {
@@ -14,7 +15,7 @@ function MenuScreen() {
   return (
     <div id="menu-screen">
       <video src={background} autoPlay loop muted playsInline />
-      <P3Menu onNavigate={(page) => navigate(`/${page}`)} />
+      <Index onNavigate={(page) => navigate(`/${page}`)} />
     </div>
   )
 }
@@ -30,8 +31,10 @@ function AnimatedRoutes() {
           <PageTransition variant="about"><AboutMe /></PageTransition>} />
         <Route path="/resume" element={
           <PageTransition><ResumePage src={background} /></PageTransition>} />
-        <Route path="/socials" element={
-          <PageTransition variant="socials"><Socials /></PageTransition>} />
+        <Route path="/blogs" element={
+          <PageTransition variant="blogs"><Blogs /></PageTransition>} />
+          <Route path="/projects" element={
+          <PageTransition variant="projects"><Blogs /></PageTransition>} />
       </Routes>
     </AnimatePresence>
   )
