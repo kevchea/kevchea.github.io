@@ -198,13 +198,11 @@ h6 {
     justify-content: center;
 }
 
-/* --- Added by ChatGPT: base tweaks for optional hamburger button --- */
 .menu-btn {
     display: none;
 }
 
 
-/* --- Added by ChatGPT: responsive/mobile layout fixes --- */
 @media (max-width: 768px) {
 
   /* Header + Nav */
@@ -300,4 +298,38 @@ h6 {
 @keyframes sc-right-nav-pop {
   0% { opacity: 0; transform: scale(0.5); }
   100% { opacity: 1; transform: scale(1); }
+}
+
+@media (max-width: 768px) {
+  .sc-right-nav {
+    top: 3vh;
+    left: 66vw;
+    gap: 0px;
+    transform: translateX(-50%) rotate(0deg);
+  }
+
+  .sc-nav-btn {
+    font-size: 18px;
+    letter-spacing: 0px;
+    -webkit-text-stroke: 1px #000;
+  }
+
+  .sc-nav-arrow {
+    font-size: 14px;
+  }
+
+  @keyframes sc-right-nav-pop {
+    0% {
+      opacity: 0;
+      transform: translateX(-50%) rotate(0deg) scale(0.55) translateY(-10px);
+    }
+    65% {
+      opacity: 1;
+      transform: translateX(-50%) rotate(0deg) scale(1.1) translateY(2px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(-50%) rotate(0deg) scale(1) translateY(0);
+    }
+  }
 }
