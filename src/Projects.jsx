@@ -1,43 +1,99 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import char1 from "./assets/char1.png";
-import char2 from "./assets/char2.png";
-import char3 from "./assets/char3.png";
-import background from "./assets/idleBlog.mp4";
-const CHARS = [char1, char2, char3];
+import meicon from "./assets/meicon.png";
+import caticon from "./assets/caticon.png";
+import huskyicon from "./assets/huskyicon.png";
+import musicicon from "./assets/musicicon.png";
+import pcicon from "./assets/pcicon.png";
+import clawicon from "./assets/clawicon.png";
+import skateicon from "./assets/skateicon.png";
+import pokericon from "./assets/pokericon.png";
+
+import round1win2 from "./assets/round1win2.png";
+import ruby1 from "./assets/ruby1.jpg";
+import pcfirst from "./assets/pcfirst.jpg";
+
+import pinkskateboard from "./assets/pink_skateboard.jpg";
+import scizor_cards from "./assets/scizor_cards.jpg";
+import poker1 from "./assets/poker1.jpg";
+
+import background from "./assets/idleProject.mp4";
+
+
+const CHARS = [meicon,caticon,huskyicon,musicicon,pcicon,clawicon,skateicon,pokericon];
 
 const ROLES = [
-  { text: "LEADER", color: "#e8c100", bg: "rgba(232,193,0,0.12)", border: "rgba(232,193,0,0.5)" },
-  { text: "PARTY",  color: "#4a8fff", bg: "rgba(74,143,255,0.12)", border: "rgba(74,143,255,0.5)" },
-  { text: "PARTY",  color: "#4a8fff", bg: "rgba(74,143,255,0.12)", border: "rgba(74,143,255,0.5)" },
+  { text: "", color: "#e8c100", bg: "rgba(232,193,0,0.12)", border: "rgba(232,193,0,0.5)" },
+  { text: "",  color: "#4a8fff", bg: "rgba(74,143,255,0.12)", border: "rgba(74,143,255,0.5)" },
+  { text: "",  color: "#4a8fff", bg: "rgba(74,143,255,0.12)", border: "rgba(74,143,255,0.5)" },
 ];
 
 const ITEMS = [
   {
-    id: "twitch", label: "TWITCH", handle: "@yourname", href: "https://twitch.tv/yourname", icon: "🎮", bars: 1, newBars: [0], counts: ["56"],
-    links: ["twitch.tv/videos/2041837265"],
-    stats: [
-      { tag: "FOL", value: "1.2K", color: "#9147ff" },
-      { tag: "VWR", value: "042",  color: "#bf94ff" },
-    ],
+    label: "UNDER CONSTRUCTION",
+    icon: "",
+    char: null,
+    panelTitle: "UNDER CONSTRUCTION",
+    panelBody: [],
+    blogImage: null,
   },
   {
-    id: "instagram", label: "INSTAGRAM", handle: "@yourhandle", href: "https://instagram.com/yourhandle", icon: "📷", bars: 5, newBars: [1, 2], counts: ["3.4M", "2.5M", "676K", "412K", "198K"],
-    links: ["instagram.com/p/C4xQmRrNk2a", "instagram.com/p/C3wLpBsOj7f", "instagram.com/reel/C2vKoArMi6e", "instagram.com/p/C1uJnZqLh5d", "instagram.com/reel/C0tImYpKg4c"],
-    stats: [
-      { tag: "FOL", value: "3.4K", color: "#e1306c" },
-      { tag: "PST", value: "128",  color: "#f77737" },
-    ],
+    label: "PLACEHOLDER",
+    icon: "",
+    char: null,
+    panelTitle: "",
+    panelBody: [],
+    blogImage: null,
   },
   {
-    id: "tiktok", label: "TIKTOK", handle: "@yourhandle", href: "https://tiktok.com/@yourhandle", icon: "🎵", bars: 7, newBars: [0, 3, 5, 6], counts: ["5.1M", "3.7M", "2.2M", "1.4M", "831K", "490K", "217K"],
-    links: ["tiktok.com/@yourhandle/video/7318492016374859054", "tiktok.com/@yourhandle/video/7305837261940183342", "tiktok.com/@yourhandle/video/7291046385720348974", "tiktok.com/@yourhandle/video/7278392047163820334", "tiktok.com/@yourhandle/video/7264819203847165742", "tiktok.com/@yourhandle/video/7251047382916430126", "tiktok.com/@yourhandle/video/7237294018463851822"],
-    stats: [
-      { tag: "FOL", value: "8.9K", color: "#00f2ea" },
-      { tag: "LKS", value: "52K",  color: "#ff0050" },
-    ],
+    label: "PLACEHOLDER",
+    icon: "",
+    char: null,
+    panelTitle: "",
+    panelBody: [],
+    blogImage: null,
+  },
+  {
+    label: "PLACEHOLDER",
+    icon: "",
+    char: null,
+    panelTitle: "",
+    panelBody: [],
+    blogImage: null,
+  },
+  {
+    label: "PLACEHOLDER",
+    icon: "",
+    char: null,
+    panelTitle: "",
+    panelBody: [],
+    blogImage: null,
+  },
+  {
+    label: "PLACEHOLDER",
+    icon: "",
+    char: null,
+    panelTitle: "",
+    panelBody: [],
+    blogImage: null,
+  },
+  {
+    label: "PLACEHOLDER",
+    icon: "",
+    char: null,
+    panelTitle: "",
+    panelBody: [],
+    blogImage: null,
   },
 ];
+
+const MAX_VISIBLE = 7;
+
+function parseBlogDate(label) {
+  const cleaned = label.replace(/(\d+)(st|nd|rd|th)/i, "$1");
+  const time = new Date(cleaned).getTime();
+  return Number.isNaN(time) ? 0 : time;
+}
 
 export default function Blogs() {
   const [active, setActive]               = useState(0);
@@ -47,7 +103,7 @@ export default function Blogs() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const t = setTimeout(() => setMounted(true), 60);
+    const t = setTimeout(() => setMounted(true), 100);
     return () => clearTimeout(t);
   }, []);
 
@@ -55,21 +111,44 @@ export default function Blogs() {
     const onKey = (e) => {
       if (focus === "left") {
         if (e.key === "ArrowUp")    setActive(i => Math.max(0, i - 1));
-        if (e.key === "ArrowDown")  setActive(i => Math.min(ITEMS.length - 1, i + 1));
+        if (e.key === "ArrowDown") setActive(i => Math.min(sortedItems.length - 1, i + 1));
         if (e.key === "ArrowRight") { setFocus("right"); setActiveInfoBar(0); }
-        if (e.key === "Enter")      window.open(ITEMS[active].href, "_blank");
-      } else {
-        const barCount = ITEMS[active].bars;
-        if (e.key === "ArrowUp")   setActiveInfoBar(i => Math.max(0, i - 1));
-        if (e.key === "ArrowDown") setActiveInfoBar(i => Math.min(barCount - 1, i + 1));
-        if (e.key === "ArrowLeft") setFocus("left");
-        if (e.key === "Enter")     window.open("https://" + ITEMS[active].links[activeInfoBar], "_blank");
+        if (e.key === "Enter");
       }
       if ((e.key === "ArrowLeft" && focus === "left") || e.key === "Escape" || e.key === "Backspace") navigate(-1);
     };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [active, navigate, focus]);
+
+  const onWheel = (e) => {
+    if (Math.abs(e.deltaY) < 8) return;
+
+    setActive(i => {
+      if (e.deltaY < 0) return Math.max(0, i - 1);
+      return Math.min(ITEMS.length - 1, i + 1);
+    });
+  };
+
+  window.addEventListener("keydown", onKey);
+  window.addEventListener("wheel", onWheel, { passive: true });
+
+  return () => {
+    window.removeEventListener("keydown", onKey);
+    window.removeEventListener("wheel", onWheel);
+  };
+    }, [active, navigate, focus]);
+
+  const sortedItems = [...ITEMS].sort(
+    (a, b) => parseBlogDate(b.label) - parseBlogDate(a.label)
+  );
+
+  const start = Math.min(
+    active,
+    Math.max(0, sortedItems.length - MAX_VISIBLE)
+  );
+
+  const end = start + MAX_VISIBLE;
+  const visibleItems = sortedItems.slice(start, end);
+  const currentItem = sortedItems[active];
+
 
   return (
     <div id="menu-screen">
@@ -79,21 +158,26 @@ export default function Blogs() {
 
         .sc-root {
           position: absolute;
-          inset: 0;
+          top: 42%;
+          left: 0;
+          right: 0;
+          bottom: auto;
+
+          transform: translateY(-45px);
           z-index: 10;
           pointer-events: none;
+
           display: flex;
           flex-direction: column;
           align-items: flex-start;
-          justify-content: center;
+          justify-content: flex-start;
           gap: 6px;
-          padding-left: 0;
         }
 
         /* ── Each bar ── */
         .sc-bar {
           position: relative;
-          width: 45vw;
+          width: 35vw;
           height: 64px;
           transition: height 0.3s cubic-bezier(0.22,1,0.36,1);
           background: #111;
@@ -117,12 +201,16 @@ export default function Blogs() {
         .sc-bar-outer:nth-child(1) { transition-delay: 0ms; }
         .sc-bar-outer:nth-child(2) { transition-delay: 80ms; }
         .sc-bar-outer:nth-child(3) { transition-delay: 160ms; }
+        .sc-bar-outer:nth-child(4) { transition-delay: 240ms; }
+        .sc-bar-outer:nth-child(5) { transition-delay: 300ms; }
+        .sc-bar-outer:nth-child(6) { transition-delay: 360ms; }
+        
 
         /* red underlay — peeks out below the bar when active */
         .sc-bar-red {
           position: absolute;
           top: 0; left: 0;
-          width: 45vw;
+          width: 35vw;
           height: 64px;
           background: #c4001a;
           clip-path: polygon(50% 0, 100% 0, 100% 100%, calc(50% - 10px) 100%);
@@ -152,8 +240,8 @@ export default function Blogs() {
         .sc-bar-shade {
           position: absolute;
           top: 0; bottom: 0;
-          left: 73%;
-          width: 6%;
+          left: 43%;
+          width: 12%;
           background: linear-gradient(90deg, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0) 100%);
           z-index: 1;
           pointer-events: none;
@@ -204,9 +292,10 @@ export default function Blogs() {
           flex: 1;
           display: flex;
           flex-direction: column;
-          align-items: center;
+          align-items: left;
           justify-content: center;
           gap: 3px;
+          padding-left: 230px;
         }
         .sc-main-top {
           display: flex;
@@ -237,15 +326,6 @@ export default function Blogs() {
         }
         .sc-bar-outer.active .sc-label { color: #111111; }
 
-        /* lb/rb nav row */
-        @keyframes sc-arrow-left {
-          0%, 100% { transform: translateX(0); opacity: 1; }
-          50%       { transform: translateX(-5px); opacity: 0.4; }
-        }
-        @keyframes sc-arrow-right {
-          0%, 100% { transform: translateX(0); opacity: 1; }
-          50%       { transform: translateX(5px); opacity: 0.4; }
-        }
         .sc-nav-btn {
           font-family: 'Bebas Neue', sans-serif;
           font-size: 12px;
@@ -255,6 +335,16 @@ export default function Blogs() {
           padding: 1px 7px;
           line-height: 1.5;
           user-select: none;
+          animation: sc-right-nav-pop 0.38s cubic-bezier(0.22,1,0.36,1) both;
+        }
+        @keyframes sc-arrow-left {
+          0%, 100% { transform: translateX(0); opacity: 1; }
+          50% { transform: translateX(-5px); opacity: 0.4; }
+        }
+
+        @keyframes sc-arrow-right {
+          0%, 100% { transform: translateX(0); opacity: 1; }
+          50% { transform: translateX(5px); opacity: 0.4; }
         }
         .sc-nav-arrow {
           font-size: 12px;
@@ -263,67 +353,6 @@ export default function Blogs() {
         }
         .sc-nav-arrow.left  { animation: sc-arrow-left  0.8s ease-in-out infinite; }
         .sc-nav-arrow.right { animation: sc-arrow-right 0.8s ease-in-out infinite; }
-
-        /* right: stats group */
-        .sc-stats {
-          display: flex;
-          align-items: center;
-          gap: 10px;
-          padding-right: 24px;
-          flex-shrink: 0;
-        }
-
-        .sc-stat {
-          display: flex;
-          flex-direction: column;
-          align-items: flex-start;
-        }
-
-        .sc-stat-top {
-          display: flex;
-          align-items: baseline;
-          gap: 4px;
-        }
-
-        .sc-stat-tag {
-          font-family: 'Bebas Neue', sans-serif;
-          font-size: 9px;
-          letter-spacing: 1.5px;
-          padding: 1px 4px;
-          border-width: 1px;
-          border-style: solid;
-          line-height: 1.4;
-          user-select: none;
-        }
-
-        .sc-stat-num {
-          font-family: 'Bebas Neue', sans-serif;
-          font-size: 26px;
-          font-style: italic;
-          line-height: 1;
-          color: #ffffff;
-          letter-spacing: 1px;
-          user-select: none;
-          transition: color 0.2s ease;
-        }
-        .sc-bar-outer.active .sc-stat-num { color: #111111; }
-
-        .sc-stat-bars {
-          width: 100%;
-          display: flex;
-          flex-direction: column;
-          gap: 1px;
-          margin-top: 2px;
-        }
-        .sc-stat-bar-color {
-          height: 3px;
-          width: 100%;
-        }
-        .sc-stat-bar-black {
-          height: 2px;
-          width: 100%;
-          background: #000;
-        }
 
         /* character portrait */
         .sc-char {
@@ -340,21 +369,22 @@ export default function Blogs() {
           clip-path: polygon(20px 0%, 100% 0%, calc(100% - 20px) 100%, 0% 100%);
         }
 
-        /* right-side nav bar */
         @keyframes sc-right-nav-pop {
           0%   { opacity: 0; transform: scale(0.55) translateY(-10px); }
           65%  { opacity: 1; transform: scale(1.1) translateY(2px); }
           100% { opacity: 1; transform: scale(1) translateY(0); }
         }
         .sc-right-nav {
-          position: fixed;
-          top: 40px;
-          right: 40px;
+          position: absolute;
+          top: 10vh;
+          left: 6vw;
           display: flex;
           align-items: center;
           gap: 6px;
           pointer-events: none;
-          z-index: 50;
+          z-index: 14;
+          transform: translateX(-40px) rotate(-20deg);
+          transform-origin: left bottom;
           animation: sc-right-nav-pop 0.38s cubic-bezier(0.22,1,0.36,1) both;
         }
         .sc-right-nav .sc-nav-btn {
@@ -369,15 +399,8 @@ export default function Blogs() {
           background: none;
           border: none;
           padding: 0 6px;
-        }
-        .sc-right-nav .sc-nav-label {
-          font-family: 'Bebas Neue', sans-serif;
-          font-size: 28px;
-          letter-spacing: 3px;
-          line-height: 1;
-          user-select: none;
-          color: #111;
-          padding: 0 8px;
+          pointer-events: auto;
+
         }
         .sc-right-nav .sc-nav-arrow {
           font-family: 'Bebas Neue', sans-serif;
@@ -407,88 +430,9 @@ export default function Blogs() {
           padding: 0;
           animation: sc-infobar-in 0.35s cubic-bezier(0.22,1,0.36,1) both;
         }
-        .sc-info-bar-wrap.selected {
-          background: #111;
-          padding: 1.5px;
-          border-radius: 8px;
-        }
-        .sc-info-bar {
-          position: relative;
-          width: 100%;
-          height: 100%;
-          background: transparent;
-          display: flex;
-          align-items: center;
-          overflow: hidden;
-        }
-        .sc-info-bar-wrap.selected .sc-info-bar {
-          background: #fff;
-          border-radius: 7px;
-        }
-        .sc-info-bar-new {
-          position: absolute;
-          left: -40px;
-          bottom: 0;
-          height: 65%;
-          width: auto;
-          pointer-events: none;
-          z-index: 3;
-        }
-        .sc-info-bar-wrap.selected .sc-info-bar::before {
-          content: '';
-          position: absolute;
-          top: 0; left: 0; right: 0;
-          height: 4px;
-          background: #c4001a;
-          z-index: 1;
-        }
-        .sc-info-bar-text {
-          flex: 1;
-          font-family: 'Bebas Neue', sans-serif;
-          font-size: 22px;
-          letter-spacing: 2px;
-          color: #111;
-          padding: 0 14px;
-          user-select: none;
-        }
-        .sc-info-bar-box {
-          height: 70%;
-          background: #000;
-          display: flex;
-          align-items: center;
-          padding: 0 12px;
-          font-family: 'Bebas Neue', sans-serif;
-          font-size: 20px;
-          letter-spacing: 1px;
-          color: #fff;
-          flex-shrink: 0;
-          border-radius: 6px;
-          margin-right: 4px;
-          user-select: none;
-        }
 
-        .sc-info-bar-icon {
-          height: 55%;
-          width: auto;
-          flex-shrink: 0;
-          margin-left: 14px;
-          object-fit: contain;
-          pointer-events: none;
-          user-select: none;
-        }
-
-        .sc-info-bar-count {
-          font-family: 'Bebas Neue', sans-serif;
-          font-size: 22px;
-          letter-spacing: 1px;
-          color: #111;
-          margin-right: 80px;
-          flex-shrink: 0;
-          user-select: none;
-        }
-
-        /* footer hints */
-        .sc-footer {
+        /* hints */
+        .sc-hint {
           position: fixed;
           bottom: 20px; right: 28px;
           display: flex; flex-direction: column;
@@ -498,95 +442,200 @@ export default function Blogs() {
           opacity: 0;
           transition: opacity 0.4s ease 0.6s;
         }
-        .sc-footer.mounted { opacity: 1; }
-        .sc-footer-row {
+        .sc-hint.mounted { opacity: 1; }
+        .sc-hint-row {
           display: flex; align-items: center; gap: 8px;
           font-size: 13px; letter-spacing: 2px;
-          color: rgba(255,255,255,0.22);
+          color: rgba(0, 0, 0, 0.6);
         }
-        .sc-footer-key {
-          border: 1px solid rgba(255,255,255,0.15);
+        .sc-hint-key {
+          border: 1px solid rgba(0, 0, 0, 0.6);
           border-radius: 3px;
           padding: 1px 6px; font-size: 11px;
         }
+        .resume-detail-panel {
+          position: absolute;
+          top: 9.5vh;
+          right: 7.5vw;
+          width: min(39vw, 960px);
+          min-height: 80vh;
+          z-index: 12;
+          padding: 22px 24px 24px 24px;
+          background: linear-gradient(180deg, rgba(15, 28, 105, 0.96) 0%, rgba(8, 16, 68, 0.97) 100%);
+          clip-path: polygon(0 0, 100% 0, calc(100% - 18px) 100%, 0 100%);
+          box-shadow:
+            inset 0 0 0 1px rgba(133, 244, 255, 0.16),
+            16px 16px 0 rgba(0, 6, 30, 0.55);
+          overflow: hidden;
+          animation: sc-right-nav-pop 0.38s cubic-bezier(0.22,1,0.36,1) both;
+        }
+        .resume-detail-panel::before {
+          content: "";
+          position: absolute;
+          inset: 0;
+          background:
+            linear-gradient(135deg, rgba(133, 244, 255, 0.08) 0 15%, transparent 15% 100%),
+            linear-gradient(180deg, rgba(255,255,255,0.05), transparent 24%);
+          pointer-events: none;
+        }
+        .resume-detail-top {
+          position: relative;
+          display: grid;
+          grid-template-columns: 20px 1fr auto;
+          align-items: center;
+          gap: 14px;
+          min-height: 92px;
+          padding: 0 18px;
+          background: linear-gradient(90deg, #8ef5ff 0%, #d3fdff 100%);
+          clip-path: polygon(0 0, 100% 0, calc(100% - 16px) 100%, 0 100%);
+          color: #08153f;
+          box-shadow: 10px 0 0 rgba(255, 94, 136, 0.88);
+        }
+        .resume-detail-top-index {
+          font-family: 'Anton', sans-serif;
+          font-size: 46px;
+          line-height: 1;
+        }
+        .resume-detail-top-title {
+          font-family: 'Anton', sans-serif;
+          font-size: 42px;
+          line-height: 0.92;
+          letter-spacing: 1px;
+        }
+        .resume-detail-top-progress {
+          font-family: 'Bebas Neue', sans-serif;
+          font-size: 42px;
+          letter-spacing: 2px;
+          line-height: 1;
+        }
+        .resume-detail-date {
+          margin-top: 18px;
+          font-family: 'Bebas Neue', sans-serif;
+          font-size: 22px;
+          letter-spacing: 3px;
+          color: #8ef5ff;
+        }
+
+        .resume-detail-body {
+          margin-top: 18px;
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+          color: rgba(235, 245, 255, 0.92);
+        }
+
+        .resume-detail-body p {
+          margin: 0;
+          font-family: 'Barlow Condensed', sans-serif;
+          font-size: 24px;
+          line-height: 1.1;
+        }
+        .resume-detail-image-wrap {
+          margin-top: 18px;
+          width: 100%;
+          display: grid;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 14px;
+          align-items: start;
+        }
+
+        .resume-detail-image-card {
+          width: 100%;
+          height: 240px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          overflow: hidden;
+          border: 1px solid rgba(142, 245, 255, 0.22);
+          box-shadow: inset 0 0 0 1px rgba(255,255,255,0.04);
+          background: rgba(255,255,255,0.03);
+        }
+
+        .resume-detail-image {
+          max-width: 100%;
+          max-height: 100%;
+          width: auto;
+          height: auto;
+          object-fit: contain;
+          display: block;
+        }
       `}</style>
 
+      <div className="sc-right-nav">
+        <span className="sc-nav-arrow left">◄</span>
+        <span
+          className="sc-nav-btn"
+          onClick={() => navigate(-1)}
+        >
+          Back
+        </span>
+        <span className="sc-nav-arrow right">►</span>
+      </div>
+
       <div className="sc-root" role="navigation">
-        {ITEMS.map((item, i) => (
+      {visibleItems.map((item, i) => {
+        const realIndex = start + i;
+
+        return (
           <div
             key={item.id}
-            className={`sc-bar-outer${active === i ? " active" : ""}${mounted ? " mounted" : ""}`}
+            className={`sc-bar-outer${active === realIndex ? " active" : ""}${mounted ? " mounted" : ""}`}
             onClick={() => {
-              if (active === i) window.open(item.href, "_blank");
-              else setActive(i);
+              setActive(realIndex);
             }}
-            onMouseEnter={() => setActive(i)}
           >
             <div className="sc-bar-red" />
             <div className="sc-bar">
-              <img className="sc-char" src={CHARS[i]} alt="" />
+              <img className="sc-char" src={item.char || CHARS[0]} alt="" />
               <div className="sc-bar-fill" />
               <div className="sc-bar-shade" />
               <div className="sc-bar-content">
-                <div className="sc-role">{ROLES[i].text}</div>
+                <div className="sc-role">{ROLES[realIndex % ROLES.length].text}</div>
                 <div className="sc-main">
                   <div className="sc-main-top">
                     <div className="sc-icon">{item.icon}</div>
                     <div className="sc-label">{item.label}</div>
                   </div>
                 </div>
-                <div className="sc-stats">
-                  {item.stats.map(s => (
-                    <div className="sc-stat" key={s.tag}>
-                      <div className="sc-stat-top">
-                        <span className="sc-stat-tag" style={{ color: s.color, borderColor: s.color }}>{s.tag}</span>
-                        <span className="sc-stat-num">{s.value}</span>
-                      </div>
-                      <div className="sc-stat-bars">
-                        <div className="sc-stat-bar-color" style={{ background: s.color }} />
-                        <div className="sc-stat-bar-black" />
-                      </div>
-                    </div>
-                  ))}
-                </div>
               </div>
             </div>
           </div>
+        );
+      })}
+    </div>
+    <div className="resume-detail-panel" key={currentItem.label}>
+      <div className="resume-detail-top">
+        <div className="resume-detail-top-index">{currentItem.id}</div>
+        <div className="resume-detail-top-title">{currentItem.panelTitle}</div>
+        <div className="resume-detail-top-progress">
+          {String(active + 1).padStart(2, "0")}/{String(sortedItems.length).padStart(2, "0")}
+        </div>
+      </div>
+
+      <div className="resume-detail-date">{currentItem.label}</div>
+
+      <div className="resume-detail-body">
+        {currentItem.panelBody.map((line, i) => (
+          <p key={i}>{line}</p>
         ))}
       </div>
 
-      {mounted && (
-        <div className="sc-right-nav" key={active}>
-          <span className="sc-nav-arrow left">◄</span>
-          <span className="sc-nav-btn">LB</span>
-          <span className="sc-nav-label">{ITEMS[active].label}</span>
-          <span className="sc-nav-btn">RB</span>
-          <span className="sc-nav-arrow right">►</span>
-        </div>
-      )}
-
-      {mounted && Array.from({ length: ITEMS[active].bars }).map((_, i) => (
-        <div
-          className={`sc-info-bar-wrap${activeInfoBar === i ? " selected" : ""}`}
-          key={`bar-${active}-${i}`}
-          style={{ top: `${155 + i * 52}px`, animationDelay: `${i * 50}ms` }}
-          onClick={() => setActiveInfoBar(i)}
-          onMouseEnter={() => setActiveInfoBar(i)}
-        >
-          <div className="sc-info-bar">
-            <img className="sc-info-bar-icon" src={ITEMS[active].barIcon} alt="" />
-            <span className="sc-info-bar-text">{ITEMS[active].links[i].slice(0, 10)}...</span>
-            <span className="sc-info-bar-box">VIEWS</span>
-            <span className="sc-info-bar-count">{ITEMS[active].counts[i]}</span>
-          </div>
-        </div>
-      ))}
-
-      <div className={`sc-footer${mounted ? " mounted" : ""}`}>
-        <div className="sc-footer-row"><span className="sc-footer-key">↑↓</span><span>SELECT</span></div>
-        <div className="sc-footer-row"><span className="sc-footer-key">↵</span><span>OPEN</span></div>
-        <div className="sc-footer-row"><span className="sc-footer-key">ESC</span><span>BACK</span></div>
+      <div className="resume-detail-image-wrap">
+        {(Array.isArray(currentItem.blogImage) ? currentItem.blogImage : [currentItem.blogImage])
+          .filter(Boolean)
+          .map((img, i) => (
+            <div className="resume-detail-image-card" key={i}>
+              <img className="resume-detail-image" src={img} alt="" />
+            </div>
+          ))}
       </div>
     </div>
+    <div className={`sc-hint${mounted ? " mounted" : ""}`}>
+      <div className="sc-hint-row"><span className="sc-hint-key">↑↓</span><span>SELECT</span></div>
+      <div className="sc-hint-row"><span className="sc-hint-key">↵</span><span>OPEN</span></div>
+      <div className="sc-hint-row"><span className="sc-hint-key">ESC</span><span>BACK</span></div>
+    </div>
+      
+  </div>
   );
 }

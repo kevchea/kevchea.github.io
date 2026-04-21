@@ -720,8 +720,8 @@ useEffect(() => {
           clip-path: polygon(20px 0%, 100% 0%, calc(100% - 20px) 100%, 0% 100%);
         }
 
-        /* footer hints */
-        .sc-footer {
+        /* hints */
+        .sc-hint {
           position: fixed;
           bottom: 20px; right: 28px;
           display: flex; flex-direction: column;
@@ -731,14 +731,14 @@ useEffect(() => {
           opacity: 0;
           transition: opacity 0.4s ease 0.6s;
         }
-        .sc-footer.mounted { opacity: 1; }
-        .sc-footer-row {
+        .sc-hint.mounted { opacity: 1; }
+        .sc-hint-row {
           display: flex; align-items: center; gap: 8px;
           font-size: 13px; letter-spacing: 2px;
-          color: rgba(255,255,255,0.22);
+          color: rgba(0, 0, 0, 0.6);
         }
-        .sc-footer-key {
-          border: 1px solid rgba(255,255,255,0.15);
+        .sc-hint-key {
+          border: 1px solid rgba(0, 0, 0, 0.6);
           border-radius: 3px;
           padding: 1px 6px; font-size: 11px;
         }
@@ -833,10 +833,10 @@ useEffect(() => {
       />
     </div>
     )}
-    <div className={`sc-footer${mounted ? " mounted" : ""}`}>
-      <div className="sc-footer-row"><span className="sc-footer-key">↑↓</span><span>SELECT</span></div>
-      <div className="sc-footer-row"><span className="sc-footer-key">↵</span><span>REVEAL</span></div>
-      <div className="sc-footer-row"><span className="sc-footer-key">ESC</span><span>BACK</span></div>
+    <div className={`sc-hint${mounted ? " mounted" : ""}`}>
+      <div className="sc-hint-row"><span className="sc-hint-key">↑↓</span><span>SELECT</span></div>
+      <div className="sc-hint-row"><span className="sc-hint-key">↵</span><span>REVEAL</span></div>
+      <div className="sc-hint-row"><span className="sc-hint-key">ESC</span><span>BACK</span></div>
     </div>
     </div>
   );

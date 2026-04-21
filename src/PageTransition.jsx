@@ -63,9 +63,9 @@ function AboutTransition() {
 
 function BlogsTransition() {
   const stripes = [
-    { color: "#00184c", left: "72vw", width: "24vw", delay: 0 },
-    { color: "#00dff7", left: "80vw", width: "14vw", delay: 0.06 },
-    { color: "#ffffff", left: "88vw", width: "8vw", delay: 0.12 },
+    { color: "#d93cd9", left: "51vw", width: "20vw", delay: 0 },
+    { color: "#00dff7", left: "71vw", width: "14vw", delay: 0.06 },
+    { color: "#ffffff", left: "84vw", width: "10.4vw", delay: 0.12 },
   ];
 
   return stripes.map((stripe, i) => (
