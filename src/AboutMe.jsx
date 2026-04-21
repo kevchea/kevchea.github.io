@@ -104,13 +104,19 @@ export default function AboutMe() {
   const navigate = useNavigate();
 
   useEffect(() => {
-  const checkMobile = () => setIsMobile(window.innerWidth <= 768);
-  checkMobile();
-  window.addEventListener("resize", checkMobile);
-  return () => window.removeEventListener("resize", checkMobile);
-}, []);
+    const checkMobile = () => {
+      const isNarrow = window.innerWidth <= 768
+      const isPortrait = window.innerHeight > window.innerWidth
+      setIsMobile(isNarrow || isPortrait)
+    }
+
+    checkMobile()
+    window.addEventListener("resize", checkMobile)
+    return () => window.removeEventListener("resize", checkMobile)
+  }, [])
 
   const background = isMobile ? mobile_bgVideo : desktop_bgVideo;
+
   useEffect(() => {
     const t = setTimeout(() => setMounted(true), 3000);
     return () => clearTimeout(t);
@@ -773,16 +779,18 @@ useEffect(() => {
       `}
       </style>
 
-    {mounted && (
-      <div
-        style={{
-          position: "absolute",
-          top: isMobile ? "349px" : "282px",
-          zIndex: 9999,
-          display: "flex",
-          flexDirection: "column",
-        }}
-      >
+      {mounted && (
+        <div
+          style={{
+            position: "absolute",
+            top: "50%",
+            left: 0,
+            transform: "translateY(-50%)",
+            zIndex: 9999,
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
         {ITEMS.map((item, i) => (
           <button
             key={item.id}

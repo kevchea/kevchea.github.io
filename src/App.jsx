@@ -12,7 +12,9 @@ import Projects from './Projects'
 import './App.css'
 
 function getBackground() {
-  return window.innerWidth <= 768 ? mobile_background : desktop_background
+  return (window.innerWidth <= 768 || window.innerHeight > window.innerWidth)
+    ? mobile_background
+    : desktop_background
 }
 
 function MenuScreen() {
