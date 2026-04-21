@@ -787,7 +787,7 @@ useEffect(() => {
         }
         .sc-camera-screen {
           position: absolute;
-          top: ${isMobile ? "67%" : "-142px"};
+          top: ${isMobile ? "67%" : "620px"};
           right: ${isMobile ? "12.5%" : "260px"};
           width: ${isMobile ? "33%" : "460px"};
           height: ${isMobile ? "18%" : "320px"};

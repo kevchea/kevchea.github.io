@@ -57,7 +57,20 @@ export default function ResumePage({ src }) {
   const [active, setActive] = useState(1);
   const [mounted, setMounted] = useState(false);
   const [hoveredRow, setHoveredRow] = useState(null);
+  const [isMobile, setIsMobile] = useState(false);
 
+  useEffect(() => {
+    const checkMobile = () => {
+      const isNarrow = window.innerWidth <= 768
+      const isPortrait = window.innerHeight > window.innerWidth
+      setIsMobile(isNarrow || isPortrait)
+    }
+
+    checkMobile()
+    window.addEventListener("resize", checkMobile)
+    return () => window.removeEventListener("resize", checkMobile)
+  }, [])
+  
   useEffect(() => {
     const t = setTimeout(() => setMounted(true), 80);
     return () => clearTimeout(t);
@@ -136,12 +149,12 @@ export default function ResumePage({ src }) {
           position: absolute;
           top: 9vh;
           left: 2.8vw;
-          width: min(47vw, 720px);
+          width: ${isMobile ? "160vw" : "min(47vw, 720px)"};
           display: flex;
           flex-direction: column;
           gap: 10px;
           pointer-events: none;
-          transform: scale(0.9);
+          transform: ${isMobile ? "scale(0.4)" : "scale(0.9)"};
           transform-origin: top left;
         }
 
@@ -293,9 +306,9 @@ export default function ResumePage({ src }) {
 
         .resume-detail-panel {
           position: absolute;
-          top: 9.5vh;
-          right: 4.5vw;
-          width: min(39vw, 620px);
+          top: ${isMobile ? "20vh" : "9.5vh"};
+          right: ${isMobile ? "-25vw" : "4.5vw"};
+          width: ${isMobile ? "150vw" : "min(39vw, 620px)"};
           min-height: 74vh;
           z-index: 12;
           padding: 22px 24px 24px 24px;
@@ -305,6 +318,7 @@ export default function ResumePage({ src }) {
             inset 0 0 0 1px rgba(133, 244, 255, 0.16),
             16px 16px 0 rgba(0, 6, 30, 0.55);
           overflow: hidden;
+          transform: ${isMobile ? "scale(0.6)" : "scale(1)"};
         }
         .resume-detail-panel::before {
           content: "";
@@ -434,7 +448,7 @@ export default function ResumePage({ src }) {
         }
        .sc-right-nav {
           position: absolute;
-          top: 80vh;
+          top: ${isMobile ? "85vh" : "80vh"};
           left: 6vw;
           display: flex;
           align-items: center;
@@ -447,7 +461,7 @@ export default function ResumePage({ src }) {
         }
         .sc-right-nav .sc-nav-btn {
           font-family: 'Bebas Neue', sans-serif;
-          font-size: 100px;
+          font-size: ${isMobile ? "70px" : "100px"};
           letter-spacing: 3px;
           line-height: 1;
           user-select: none;
