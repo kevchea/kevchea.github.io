@@ -16,7 +16,7 @@ const CLIP_SHAPES = [
   (w, h) => `polygon(0px 0px, ${w}px ${h * 0.5}px, 0px ${h}px)`,
 ];
 
-export default function Index({ onNavigate }) {
+export default function Index({ onNavigate, isMobile = false }) {
   const [active, setActive] = useState(0);
   const [mounted, setMounted] = useState(false);
   const [animKey, setAnimKey] = useState(0);
@@ -74,13 +74,12 @@ export default function Index({ onNavigate }) {
         .menu {
           position: relative;
           z-index: 20;
-          padding: 48px;
           display: flex;
           flex-direction: column;
           align-items: center;
           pointer-events: all;
-          gap: 2px;
-          transform: translateX(240px);
+          gap: "2px";
+          transform: translateX(${isMobile ? "120px" : "240px"});
         }
 
         .row {
@@ -186,18 +185,24 @@ export default function Index({ onNavigate }) {
 
         .hint {
           position: absolute;
-          bottom: 24px; right: 28px;
+          bottom: ${isMobile ? "14px" : "24px"};
+          right: ${isMobile ? "12px" : "28px"};
           z-index: 20;
-          display: flex; flex-direction: column;
-          align-items: flex-end; gap: 5px;
+          display: flex;
+          flex-direction: column;
+          align-items: flex-end;
+          gap: 5px;
           font-family: 'Anton', sans-serif;
           opacity: 0;
           transition: opacity 0.5s ease 0.9s;
         }
         .hint.mounted { opacity: 1; }
         .hint-row {
-          display: flex; align-items: center; gap: 8px;
-          font-size: 13px; letter-spacing: 2px;
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          font-size: ${isMobile ? "10px" : "13px"};
+          letter-spacing: 2px;
           color: rgba(255,255,255,0.28);
         }
         .hint-key {
@@ -206,18 +211,18 @@ export default function Index({ onNavigate }) {
           padding: 1px 6px; font-size: 11px;
         }
 
-        .name-tag {
+        .title-tag {
           position: absolute;
-          top: 0px;
-          left: 180px;
+          top: ${isMobile ? "200px" : "0px"};
+          left: ${isMobile ? "24px" : "180px"};
           z-index: 20;
           font-family: 'Anton', sans-serif;
           font-style: italic;
-          font-size: 108px;
+          font-size: ${isMobile ? "52px" : "108px"};
           line-height: .94;
           letter-spacing: 2px;
           color: rgba(10, 10, 14, 0.64);
-          transform: rotate(18deg);
+          transform: rotate(${isMobile ? "10deg" : "18deg"});
           transform-origin: left top;
           user-select: none;
           pointer-events: none;
@@ -225,7 +230,7 @@ export default function Index({ onNavigate }) {
           flex-direction: column;
           align-items: flex-start;
         }
-        .name-tag span:first-child {
+        .title-tag span:first-child {
           color: rgba(0, 0, 0, 0.86);
         }
         @keyframes sc-arrow-left {
@@ -242,54 +247,48 @@ export default function Index({ onNavigate }) {
           65%  { opacity: 1; transform: scale(1.1) translateY(2px); }
           100% { opacity: 1; transform: scale(1) translateY(0); }
         }
-       .sc-right-nav {
-          position: absolute;
-          top: 80vh;
-          left: 65vw;
-          display: flex;
-          align-items: center;
-          gap: 6px;
-          pointer-events: auto;
-          z-index: 14;
-          transform: translateX(-40px) rotate(-20deg);
-          transform-origin: left bottom;
-          animation: sc-right-nav-pop 0.38s cubic-bezier(0.22,1,0.36,1) both;
-        }
-        .sc-right-nav .sc-nav-btn {
-          font-family: 'Bebas Neue', sans-serif;
-          font-size: 40px;
-          letter-spacing: 3px;
-          line-height: 1;
-          user-select: none;
-          color: #fff;
-          -webkit-text-stroke: 2px #000;
-          paint-order: stroke fill;
-          background: none;
-          border: none;
-          padding: 0 6px;
-        }
-        .sc-right-nav .sc-nav-dot {
-          width: 16px;
-          height: 16px;
-          border-radius: 999px;
-          background: #111;
-          margin: 0 10px;
-          flex-shrink: 0;
-        }
-        .sc-right-nav .sc-nav-arrow {
-          font-family: 'Bebas Neue', sans-serif;
-          font-size: 22px;
-          color: #c4001a;
-          display: inline-block;
-          user-select: none;
-        }
+      .sc-right-nav {
+        position: absolute;
+        top: ${isMobile ? "92vh" : "80vh"};
+        left: ${isMobile ? "30vw" : "65vw"};
+        display: flex;
+        align-items: center;
+        gap: ${isMobile ? "2px" : "6px"};
+        pointer-events: auto;
+        z-index: 14;
+        transform: translateX(${isMobile ? "-50%" : "-40px"}) rotate(${isMobile ? "0deg" : "-20deg"});
+        transform-origin: left bottom;
+        animation: sc-right-nav-pop 0.38s cubic-bezier(0.22,1,0.36,1) both;
+      }
+
+      .sc-right-nav .sc-nav-btn {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: ${isMobile ? "20px" : "40px"};
+        letter-spacing: ${isMobile ? "1px" : "3px"};
+        line-height: 1;
+        user-select: none;
+        color: #fff;
+        -webkit-text-stroke: ${isMobile ? "1px" : "2px"} #000;
+        paint-order: stroke fill;
+        background: none;
+        border: none;
+        padding: 0 6px;
+      }
+
+      .sc-right-nav .sc-nav-arrow {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: ${isMobile ? "14px" : "22px"};
+        color: #c4001a;
+        display: inline-block;
+        user-select: none;
+      }
         .sc-right-nav .sc-nav-arrow.left  { animation: sc-arrow-left  0.8s ease-in-out infinite; }
         .sc-right-nav .sc-nav-arrow.right { animation: sc-arrow-right 0.8s ease-in-out infinite; }
 
       `}</style>
 
       <div className="overlay">
-        <div className="name-tag">
+        <div className="title-tag">
           <span>Welcome to</span>
           <span>my Site!!</span>
         </div>
@@ -298,11 +297,15 @@ export default function Index({ onNavigate }) {
 
         <nav className="menu">
           {ITEMS.map((item, i) => {
+            const scale = isMobile ? 0.62 : 1;
+            const fontSize = Math.round(item.fontSize * scale);
+            const offsetX = Math.round(item.offsetX * scale);
+            const offsetY = Math.round(item.offsetY * scale);
             const isActive = active === i;
             const dist = Math.abs(i - active);
             const opacity = isActive ? 1 : Math.max(0.5, 1 - dist * 0.2);
-            const estW = item.label.length * item.fontSize * 0.6 + 80;
-            const estH = item.fontSize * 0.94;
+            const estW = item.label.length * fontSize * 0.6 + (isMobile ? 42 : 80);
+            const estH = fontSize * 0.94;
             const clipFn = CLIP_SHAPES[i] ?? CLIP_SHAPES[0];
 
             return (
@@ -311,8 +314,8 @@ export default function Index({ onNavigate }) {
                 href="#"
                 className={`row ${isActive ? "active" : ""} ${mounted ? "mounted" : ""}`}
                 style={{
-                  marginRight: item.offsetX,
-                  marginTop: item.offsetY,
+                  marginRight: offsetX,
+                  marginTop: offsetY,
                   transitionDelay: mounted ? `${i * 80}ms` : "0ms",
                 }}
                 onClick={(e) => {
@@ -350,13 +353,13 @@ export default function Index({ onNavigate }) {
                     }}
                   />
                   <div className="label-wrap" style={{ opacity }}>
-                    <span className="label-base label-dark" style={{ fontSize: item.fontSize }}>
+                    <span className="label-base label-dark" style={{ fontSize }}>
                       {item.label}
                     </span>
                     <span
                       className="label-base label-bright"
                       style={{
-                        fontSize: item.fontSize,
+                        fontSize,
                         clipPath: clipFn(estW, estH),
                       }}
                     >
