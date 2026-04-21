@@ -147,7 +147,7 @@ export default function ResumePage({ src }) {
 
         .resume-stack {
           position: absolute;
-          top: 9vh;
+          top: ${isMobile ? "5vh" : "8vh"};
           left: 2.8vw;
           width: ${isMobile ? "160vw" : "min(47vw, 720px)"};
           display: flex;
