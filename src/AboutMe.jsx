@@ -223,7 +223,7 @@ useEffect(() => {
           </div>
         </div>
       )}
-      {revealed && (
+      {revealed && !isMobile && (
         <div
           key={`portrait-${active}`}
           className={`sc-main-portrait-shell${mounted ? " mounted" : ""}`}
@@ -245,11 +245,36 @@ useEffect(() => {
             className="sc-main-portrait"
             src={REVEAL_IMAGE_SETS[active][revealImageIndex]}
           />
-        {/* LEFT ARROW */}
         <span className="sc-portrait-arrow left">◄</span>
-
-        {/* RIGHT ARROW */}
         <span className="sc-portrait-arrow right">►</span>
+        </div>
+      )}
+
+      {revealed && isMobile && (
+        <div
+          className="sc-camera-screen"
+          onClick={(e) => {
+            e.stopPropagation();
+
+            const rect = e.currentTarget.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const currentSet = REVEAL_IMAGE_SETS[active];
+
+            if (x < rect.width / 2) {
+              setRevealImageIndex((prev) => (prev - 1 + currentSet.length) % currentSet.length);
+            } else {
+              setRevealImageIndex((prev) => (prev + 1) % currentSet.length);
+            }
+          }}
+          
+        >
+          <img
+            className="camera-img"
+            src={REVEAL_IMAGE_SETS[active][revealImageIndex]}
+            alt=""
+          />
+          <span className="sc-portrait-arrow left">◄</span>
+          <span className="sc-portrait-arrow right">►</span>
         </div>
       )}
       <style>{`
@@ -289,15 +314,16 @@ useEffect(() => {
         @keyframes sc-reveal-bar-in {
           0% {
             opacity: 0;
-            transform: translateX(-120px) rotate(-20deg) scaleX(0.72);
+            transform: ${isMobile ? "" : "translateX(-120px) rotate(-20deg) scaleX(0.72)"};
+
           }
           60% {
             opacity: 0.96;
-            transform: translateX(18px) rotate(-20deg) scaleX(1.03);
+            transform: ${isMobile ? "" : "translateX(18px) rotate(-20deg) scaleX(1.03)"};
           }
           100% {
             opacity: 0.92;
-            transform: translateX(0) rotate(-20deg) scaleX(1);
+            transform: ${isMobile ? "" : "translateX(0) rotate(-20deg) scaleX(1);"};
           }
         }
 
@@ -362,39 +388,39 @@ useEffect(() => {
 
         /* left side */
         .sc-portrait-arrow.left {
-          left: 12px;
+          left: ${isMobile ? "0" : "12px"};
           animation: sc-arrow-left 0.8s ease-in-out infinite;
         }
 
         /* right side */
         .sc-portrait-arrow.right {
-          right: 60px;
+          right: ${isMobile ? "0px" : "60px"};
           animation: sc-arrow-right 0.8s ease-in-out infinite;
         }
 
         .sc-reveal-panel {
           position: absolute;
-  top: ${isMobile ? "50vh" : "44vh"};
-  left: ${isMobile ? "-2vw" : "-6vw"};
-  width: ${isMobile ? "104vw" : "88vw"};
-  height: ${isMobile ? "38vh" : "60vh"};
+          top: ${isMobile ? "25vh" : "44vh"};
+          left: ${isMobile ? "0vw" : "-6vw"};
+          width: ${isMobile ? "100vw" : "88vw"};
+          height: ${isMobile ? "38vh" : "60vh"};
           z-index: 12;
           pointer-events: none;
           background:
             linear-gradient(180deg, rgba(255,255,255,0.98) 0%, rgba(243,246,252,0.98) 100%);
-          clip-path: polygon(0 0, 100% 0, calc(100% - 88px) 100%, 0 100%);
+          clip-path:  "polygon(0 0, 100% 0, calc(100% - 88px) 100%, 0 100%);
           box-shadow:
             0 0 0 2px rgba(255,255,255,0.18),
             18px 0 0 rgba(215, 13, 44, 0.82),
             28px 0 0 rgba(255,255,255,0.26);
           opacity: 0;
-          transform: translateX(-40px) rotate(-20deg);
+          transform: ${isMobile ? "" : "translateX(-40px) rotate(-20deg)"};
           transform-origin: left bottom;
           transition: opacity 0.3s ease, transform 0.35s ease;
         }
         .sc-reveal-panel.mounted {
           opacity: 0.92;
-          transform: translateX(0) rotate(-20deg);
+          transform: ${isMobile ? "" : "translateX(-40px) rotate(-20deg)"};
           animation: sc-reveal-bar-in 0.46s cubic-bezier(0.22, 1, 0.36, 1);
         }
         .sc-reveal-panel::before {
@@ -412,7 +438,7 @@ useEffect(() => {
           top: 10%;
           left: 0%;
           width: 100%;
-          height: 40%;
+          height: ${isMobile ? "45%" : "40%"};
           background: rgba(0, 0, 0, 0.92);
           clip-path: polygon(0 0, 100% 0, calc(100% - 22px) 100%, 0 100%);
           box-shadow: 0 0 0 1px rgba(255,255,255,0.06);
@@ -423,6 +449,7 @@ useEffect(() => {
           gap: 10px;
           color: #fff;
           text-align: center;
+          padding-right: 15px;
         }
         .sc-reveal-upper-line {
           font-family: 'Montserrat', sans-serif;
@@ -436,7 +463,7 @@ useEffect(() => {
           top: 58%;
           right: 0;
           width: 100%;
-          height: 30%;
+          height: ${isMobile ? "35%" : "30%"};
           background: rgba(0, 0, 0, 0.92);
           clip-path: polygon(0 0, 100% 0, calc(100% - 22px) 100%, 0 100%);
           box-shadow: 0 0 0 1px rgba(255,255,255,0.06);
@@ -760,20 +787,22 @@ useEffect(() => {
         }
         .sc-camera-screen {
           position: absolute;
-          bottom: -142px;
-          right: 260px;
-          width: 460px;
-          height: 320px;
+          top: ${isMobile ? "67%" : "-142px"};
+          right: ${isMobile ? "12.5%" : "260px"};
+          width: ${isMobile ? "33%" : "460px"};
+          height: ${isMobile ? "18%" : "320px"};
           overflow: hidden;
           transform: rotate(27deg) skewX(-4deg);
           border-radius: 8px;
-            clip-path: polygon(2% 2%, 100% 24%, 100% 100%, 0% 100%);
-
+            clip-path: polygon(2% 2%, 98% 14%, 100% 100%, 0% 100%);
+            clip-path: ${isMobile ? "polygon(2% 2%, 98% 14%, 100% 100%, 0% 100%);" : "polygon(2% 2%, 100% 24%, 100% 100%, 0% 100%)"};
+          pointer-events: auto;
+          cursor: pointer;
+          z-index: 14;
         }
         .camera-img {
           width: 120%;
           height: 120%;
-          object-fit: cover;
           transform: translate(-10%, -10%);
         }
       `}
@@ -843,13 +872,13 @@ useEffect(() => {
       ))}
     </div>
 
-    {mounted && !isMobile && (
-    <div className="sc-camera-screen">
-      <img
-        src={staticOn ? CAMERA_PREVIEWS[3] : CHARS[active]}
-        className="camera-img"
-      />
-    </div>
+    {mounted && !revealed && (
+      <div className="sc-camera-screen">
+        <img
+          src={staticOn ? CAMERA_PREVIEWS[3] : CHARS[active]}
+          className="camera-img"
+        />
+      </div>
     )}
     <div className={`sc-hint${mounted ? " mounted" : ""}`}>
       <div className="sc-hint-row"><span className="sc-hint-key">↑↓</span><span>SELECT</span></div>
