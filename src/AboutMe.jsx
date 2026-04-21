@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import bgVideo from "./assets/aboutme.mp4";
+import desktop_bgVideo from "./assets/aboutme.mp4";
+import mobile_bgVideo from "./assets/mobile_aboutme.mp4";
 import mainme from "./assets/profilepic.jpg";
 import phoneMods from "./assets/phoneMods.jpg";
 
@@ -99,8 +100,17 @@ export default function AboutMe() {
   const [paused, setPaused] = useState(false);
   const [staticOn, setStatic] = useState(false);
   const [revealImageIndex, setRevealImageIndex] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
   const navigate = useNavigate();
 
+  useEffect(() => {
+  const checkMobile = () => setIsMobile(window.innerWidth <= 768);
+  checkMobile();
+  window.addEventListener("resize", checkMobile);
+  return () => window.removeEventListener("resize", checkMobile);
+}, []);
+
+  const background = isMobile ? mobile_bgVideo : desktop_bgVideo;
   useEffect(() => {
     const t = setTimeout(() => setMounted(true), 3000);
     return () => clearTimeout(t);
@@ -168,7 +178,7 @@ useEffect(() => {
 
   return (
     <div id="menu-screen">
-      <video src={bgVideo} autoPlay muted playsInline />
+      <video src={background} autoPlay muted playsInline />
       {revealed && <div key={`dim-${active}`} className="sc-dim" />}
         { (
         <div key={`nav-${active}`} className="sc-right-nav">
@@ -248,7 +258,7 @@ useEffect(() => {
           flex-direction: column;
           align-items: flex-start;
           justify-content: center;
-          gap: 6px;
+          gap: ${isMobile ? "2px" : "6px"};
           padding-left: 0;
         }
 
@@ -315,12 +325,12 @@ useEffect(() => {
 
         .sc-main-portrait-shell {
           position: absolute;
-          top: 0;
-          right: -3vw;
+  top: ${isMobile ? "0" : "0"};
+  right: ${isMobile ? "-18vw" : "-3vw"};
           z-index: 13;
           pointer-events: auto;
-          width: 43vw;
-          height: 100vh;
+  width: ${isMobile ? "60vw" : "43vw"};
+  height: ${isMobile ? "100vh" : "100vh"};
           overflow: hidden;
           opacity: 0;
           transform: translateX(24px) skewX(-8deg) scale(0.98);
@@ -358,10 +368,10 @@ useEffect(() => {
 
         .sc-reveal-panel {
           position: absolute;
-          top: 44vh;
-          left: -6vw;
-          width: 88vw;
-          height: 60vh;
+  top: ${isMobile ? "50vh" : "44vh"};
+  left: ${isMobile ? "-2vw" : "-6vw"};
+  width: ${isMobile ? "104vw" : "88vw"};
+  height: ${isMobile ? "38vh" : "60vh"};
           z-index: 12;
           pointer-events: none;
           background:
@@ -411,7 +421,7 @@ useEffect(() => {
         .sc-reveal-upper-line {
           font-family: 'Montserrat', sans-serif;
           font-weight: 300;
-          font-size: 20px;
+  font-size: ${isMobile ? "12px" : "20px"};
           letter-spacing: 0.5px;
           line-height: 1.15;
         }
@@ -432,7 +442,7 @@ useEffect(() => {
           color: #fff;
           font-family: 'Montserrat', sans-serif;
           font-weight: 300;
-          font-size: 22px;
+  font-size: ${isMobile ? "13px" : "22px"};
           letter-spacing: 0.4px;
           text-transform: lowercase;
           padding: 0 22px;
@@ -494,8 +504,8 @@ useEffect(() => {
         /* ── Each bar ── */
         .sc-bar {
           position: relative;
-          width: 45vw;
-          height: 64px;
+          width: ${isMobile ? "80vw" : "45vw"};
+          height: ${isMobile ? "64px" : "64px"};
           transition: height 0.3s cubic-bezier(0.22,1,0.36,1);
           background: #111;
           cursor: pointer;
@@ -528,8 +538,8 @@ useEffect(() => {
         .sc-bar-red {
           position: absolute;
           top: 0; left: 0;
-          width: 45vw;
-          height: 64px;
+          width: ${isMobile ? "80vw" : "45vw"};
+          height: ${isMobile ? "64px" : "64px"};
           background: #c4001a;
           clip-path: polygon(50% 0, 100% 0, 100% 100%, calc(50% - 10px) 100%);
           transform: translateY(-7px);
@@ -551,7 +561,7 @@ useEffect(() => {
           z-index: 0;
         }
         .sc-bar-outer.active .sc-bar-fill {
-          clip-path: polygon(22% 0, 100% 0, calc(100% - 14px) 100%, calc(22% + 138px) 100%);
+          clip-path: ${isMobile ? "polygon(22% 0, 100% 0, calc(100% - 4px) 100%, 35% 100%)" : "polygon(22% 0, 100% 0, calc(100% - 4px) 100%, calc(22% + 138px) 100%)"};
         }
 
         /* shade on the left edge of the white fill */
@@ -613,7 +623,7 @@ useEffect(() => {
           align-items: center;
           justify-content: center;
           gap: 3px;
-          padding-left: 78px;
+          padding-left: ${isMobile ? "65px" : "78px"};
         }
         .sc-main-top {
           display: flex;
@@ -709,10 +719,10 @@ useEffect(() => {
         .sc-char {
           position: absolute;
           top: 0;
-          left: 110px;
+          left: ${isMobile ? "10px" : "110px"};
           height: 100%;
           width: auto;
-          max-width: 160px;
+          max-width: ${isMobile ? "100px" : "160px"};
           object-fit: cover;
           object-position: top;
           pointer-events: none;
@@ -767,7 +777,7 @@ useEffect(() => {
       <div
         style={{
           position: "absolute",
-          top: "282px",
+          top: isMobile ? "349px" : "282px",
           zIndex: 9999,
           display: "flex",
           flexDirection: "column",
@@ -790,8 +800,8 @@ useEffect(() => {
               setPaused(true);
             }}
             style={{
-              width: "45vw",
-              height: "86px",
+              width: isMobile ? "78vw" : "45vw",
+              height: isMobile ? "80px" : "78px",
               background: "transparent",
               border: "none",
               cursor: paused ? "default" : "pointer",
@@ -825,7 +835,7 @@ useEffect(() => {
       ))}
     </div>
 
-    {mounted && (
+    {mounted && !isMobile && (
     <div className="sc-camera-screen">
       <img
         src={staticOn ? CAMERA_PREVIEWS[3] : CHARS[active]}
