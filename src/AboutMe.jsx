@@ -880,11 +880,13 @@ useEffect(() => {
         />
       </div>
     )}
-    <div className={`sc-hint${mounted ? " mounted" : ""}`}>
-      <div className="sc-hint-row"><span className="sc-hint-key">↑↓</span><span>SELECT</span></div>
-      <div className="sc-hint-row"><span className="sc-hint-key">↵</span><span>REVEAL</span></div>
-      <div className="sc-hint-row"><span className="sc-hint-key">ESC</span><span>BACK</span></div>
-    </div>
+    {!isMobile && (
+      <div className={`sc-hint${mounted ? " mounted" : ""}`}>
+        <div className="sc-hint-row"><span className="sc-hint-key">↑↓</span><span>SELECT</span></div>
+        <div className="sc-hint-row"><span className="sc-hint-key">↵</span><span>REVEAL</span></div>
+        <div className="sc-hint-row"><span className="sc-hint-key">ESC</span><span>BACK</span></div>
+      </div>
+    )}
     </div>
   );
 }
