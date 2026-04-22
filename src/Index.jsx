@@ -78,7 +78,7 @@ export default function Index({ onNavigate, isMobile = false }) {
           flex-direction: column;
           align-items: center;
           pointer-events: all;
-          gap: "2px";
+          gap: ${isMobile ? "4px" : "2px"};
           transform: translateX(${isMobile ? "120px" : "240px"});
         }
 
