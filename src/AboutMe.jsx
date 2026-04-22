@@ -39,34 +39,27 @@ const REVEAL_IMAGE_SETS = [
 const REVEAL_CONTENT = [
   {
     upper: [
-      "I've always loved tinkering, so much to the point I started my own business doing repairs",
-      " and modifications to devices since junior high. I'm a hands on person.",
-      "but I still like developing hence why I'm in Computer Engineering.",
+      "I'm a 5th-year Computer Engineering Major at Drexel University.",
+      "It's awesome to build and test the physical components that power our devices with code that bring them to life.",
+      "In my spare time I tinker, game, and cruise around Philadelphia on my electric skateboard. I just picked up electric guitar and am self learning. Favorite genres are pop-punk/rock and EDM!",
     ],
     lower: [
-      "I'm also a pretty competitive person which motivates me to want to do many different",
-      "things. My other hobbies include: Soccer, Skateboarding, and competitive eSports.",
+      "I coded this website to act as my home base on the internet. I hope you enjoy browsing around!",
     ],
   },
   {
     upper: [
-      "This is Meow Meows! While my parents were on vacation in Canada, we decided to give this",
-      "lil guy a temp home as he was being bullied by the neighborhood strays. Since we had a husky,",
-      "my parents didn't want another pet but I was able to take care of Yuki and teach this guy how to",
-      "do his business in the toilet! My parents initially weren't happy quickly changed their minds :p"
+      "This is Meow Meows! While my parents were on vacation in Canada, we decided to give this lil guy a temp home as he was being bullied by the neighborhood strays. Since we had a husky, my parents didn't want another pet but I was able to take care of Yuki and teach this guy how to do his business in the toilet! My parents initially weren't happy quickly changed their minds :p"
     ],
     lower: [
-      "We didn't plan to actually be able to keep him so his name was meows meows and it",
-      "and it stuck when my parents came back and liked the name LOL",
+      "We didn't plan to actually be able to keep him so his name was meows meows and it and it stuck when my parents came back and liked the name LOL",
     ],
   },
   {
     upper: [
-      "This is Yuki! I got him when he was 4 months old!",
-      "He's such a silly boy and literally did not stay this small for long at all",
-      "He loved playing tug of war and fetch",
+      "This is Yuki! I got him when he was 4 months old! He's such a silly boy and literally did not stay this small for long at all. He loved playing tug of war and fetch",
     ],
-    lower: "sadly, he is no longer with us, he ran away into a creek and we never found him </3",
+    lower: "Sadly, he is no longer with us, he ran away into a creek and we never found him </3",
   },
 ];
 
@@ -475,12 +468,13 @@ let touchStartY = 0;
           gap: 10px;
           color: #fff;
           text-align: center;
-          padding-right: 15px;
+          padding-right: ${isMobile ? "15px" : "250px"};
+          padding-left: ${isMobile ? "5px" : "350px"};
         }
         .sc-reveal-upper-line {
           font-family: 'Montserrat', sans-serif;
           font-weight: 300;
-  font-size: ${isMobile ? "12px" : "20px"};
+          font-size: ${isMobile ? "12px" : "20px"};
           letter-spacing: 0.5px;
           line-height: 1.15;
         }
@@ -501,10 +495,10 @@ let touchStartY = 0;
           color: #fff;
           font-family: 'Montserrat', sans-serif;
           font-weight: 300;
-  font-size: ${isMobile ? "13px" : "22px"};
+          font-size: ${isMobile ? "12px" : "20px"};
           letter-spacing: 0.4px;
-          text-transform: lowercase;
-          padding: 0 22px;
+          padding-right: ${isMobile ? "15px" : "250px"};
+          padding-left: ${isMobile ? "5px" : "350px"};
           text-align: center;
         }
 
