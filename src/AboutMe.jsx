@@ -148,14 +148,40 @@ useEffect(() => {
     });
   };
 
-  window.addEventListener("keydown", onKey);
-  window.addEventListener("wheel", onWheel, { passive: true });
+let touchStartY = 0;
+    let touchEndY = 0;
+    const MIN_SWIPE = 40;
 
-  return () => {
-    window.removeEventListener("keydown", onKey);
-    window.removeEventListener("wheel", onWheel);
-  };
-}, [navigate, revealed]);
+    const onTouchStart = (e) => {
+      touchStartY = e.touches[0].clientY;
+      touchEndY = e.touches[0].clientY;
+    };
+    const onTouchMove = (e) => {
+      touchEndY = e.touches[0].clientY;
+    };
+    const onTouchEnd = () => {
+      if (!isMobile) return;
+      const diff = touchStartY - touchEndY;
+      if (Math.abs(diff) < MIN_SWIPE) return;
+      setActive((i) => {
+        if (diff > 0) return Math.min(ITEMS.length - 1, i + 1); // swipe up
+        return Math.max(0, i - 1); // swipe down
+      });
+    };
+    window.addEventListener("keydown", onKey);
+    window.addEventListener("wheel", onWheel, { passive: true });
+    window.addEventListener("touchstart", onTouchStart, { passive: true });
+    window.addEventListener("touchmove", onTouchMove, { passive: true });
+    window.addEventListener("touchend", onTouchEnd);
+
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      window.removeEventListener("wheel", onWheel);
+      window.removeEventListener("touchstart", onTouchStart);
+      window.removeEventListener("touchmove", onTouchMove);
+      window.removeEventListener("touchend", onTouchEnd);
+    };
+  }, [navigate, revealed, isMobile]);
 
   useEffect(() => {
     if (!paused || !revealed) return;

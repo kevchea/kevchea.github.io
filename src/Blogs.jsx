@@ -184,23 +184,48 @@ export default function Blogs() {
       if ((e.key === "ArrowLeft" && focus === "left") || e.key === "Escape" || e.key === "Backspace") navigate(-1);
     };
 
-  const onWheel = (e) => {
-    if (Math.abs(e.deltaY) < 8) return;
+    const onWheel = (e) => {
+      if (Math.abs(e.deltaY) < 8) return;
 
-    setActive(i => {
-      if (e.deltaY < 0) return Math.max(0, i - 1);
-      return Math.min(ITEMS.length - 1, i + 1);
-    });
-  };
+      setActive(i => {
+        if (e.deltaY < 0) return Math.max(0, i - 1);
+        return Math.min(ITEMS.length - 1, i + 1);
+      });
+    };
+    let touchStartX = 0;
+    let touchEndX = 0;
+    const MIN_SWIPE = 40;
 
-  window.addEventListener("keydown", onKey);
-  window.addEventListener("wheel", onWheel, { passive: true });
+    const onTouchStart = (e) => {
+      touchStartX = e.touches[0].clientX;
+      touchEndX = e.touches[0].clientX;
+    };
+    const onTouchMove = (e) => {
+      touchEndX = e.touches[0].clientX;
+    };
+    const onTouchEnd = () => {
+      if (!isMobile) return;
+      const diff = touchStartX - touchEndX;
+      if (Math.abs(diff) < MIN_SWIPE) return;
+      setActive((i) => {
+        if (diff > 0) return Math.min(sortedItems.length - 1, i + 1); // swipe left
+        return Math.max(0, i - 1); // swipe right
+      });
+    };
+    window.addEventListener("keydown", onKey);
+    window.addEventListener("wheel", onWheel, { passive: true });
+    window.addEventListener("touchstart", onTouchStart, { passive: true });
+    window.addEventListener("touchmove", onTouchMove, { passive: true });
+    window.addEventListener("touchend", onTouchEnd);
 
-  return () => {
-    window.removeEventListener("keydown", onKey);
-    window.removeEventListener("wheel", onWheel);
-  };
-    }, [active, navigate, focus]);
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      window.removeEventListener("wheel", onWheel);
+      window.removeEventListener("touchstart", onTouchStart);
+      window.removeEventListener("touchmove", onTouchMove);
+      window.removeEventListener("touchend", onTouchEnd);
+    };
+  }, [active, navigate, focus, isMobile]);
 
   const sortedItems = [...ITEMS].sort(
     (a, b) => parseBlogDate(b.label) - parseBlogDate(a.label)
