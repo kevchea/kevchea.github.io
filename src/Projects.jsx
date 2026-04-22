@@ -17,7 +17,9 @@ import pinkskateboard from "./assets/pink_skateboard.jpg";
 import scizor_cards from "./assets/scizor_cards.jpg";
 import poker1 from "./assets/poker1.jpg";
 
-import background from "./assets/idleProject.mp4";
+import desktop_bgVideo from "./assets/idleProject.mp4";
+import mobile_bgVideo from "./assets/mobile_projectIdle.mp4";
+
 
 
 const CHARS = [meicon,caticon,huskyicon,musicicon,pcicon,clawicon,skateicon,pokericon];
@@ -87,7 +89,9 @@ const ITEMS = [
   },
 ];
 
-const MAX_VISIBLE = 7;
+
+const DESKTOP_VISIBLE = 7;
+const MOBILE_VISIBLE = 3;
 
 function parseBlogDate(label) {
   const cleaned = label.replace(/(\d+)(st|nd|rd|th)/i, "$1");
@@ -100,8 +104,23 @@ export default function Blogs() {
   const [mounted, setMounted]             = useState(false);
   const [activeInfoBar, setActiveInfoBar] = useState(0);
   const [focus, setFocus]                 = useState("left"); // "left" | "right"
+  const [isMobile, setIsMobile] = useState(false);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const checkMobile = () => {
+      const isNarrow = window.innerWidth <= 768
+      const isPortrait = window.innerHeight > window.innerWidth
+      setIsMobile(isNarrow || isPortrait)
+    }
+
+    checkMobile()
+    window.addEventListener("resize", checkMobile)
+    return () => window.removeEventListener("resize", checkMobile)
+  }, [])
+
+  const background = isMobile ? mobile_bgVideo : desktop_bgVideo;
+  
   useEffect(() => {
     const t = setTimeout(() => setMounted(true), 100);
     return () => clearTimeout(t);
@@ -139,11 +158,13 @@ export default function Blogs() {
   const sortedItems = [...ITEMS].sort(
     (a, b) => parseBlogDate(b.label) - parseBlogDate(a.label)
   );
+  const MAX_VISIBLE = isMobile ? MOBILE_VISIBLE : DESKTOP_VISIBLE;
 
-  const start = Math.min(
-    active,
-    Math.max(0, sortedItems.length - MAX_VISIBLE)
-  );
+  let start = active - 1;
+  if (start < 0) start = 0;
+  if (start > sortedItems.length - MAX_VISIBLE) {
+    start = Math.max(0, sortedItems.length - MAX_VISIBLE);
+  }
 
   const end = start + MAX_VISIBLE;
   const visibleItems = sortedItems.slice(start, end);
@@ -158,19 +179,17 @@ export default function Blogs() {
 
         .sc-root {
           position: absolute;
-          top: 42%;
-          left: 0;
-          right: 0;
+          top: ${isMobile ? "15%" : "42%"};
+          left: ${isMobile ? "50%" : "0"};
+          right: ${isMobile ? "auto" : "0"};
           bottom: auto;
-
-          transform: translateY(-45px);
+          transform: ${isMobile ? "translateX(-45%)" : "translateY(-45px)"};
           z-index: 10;
           pointer-events: none;
-
           display: flex;
-          flex-direction: column;
+          flex-direction: ${isMobile ? "row" : "column"};
           align-items: flex-start;
-          justify-content: flex-start;
+          justify-content: ${isMobile ? "center" : "flex-start"};
           gap: 6px;
         }
 
@@ -233,7 +252,7 @@ export default function Blogs() {
           z-index: 0;
         }
         .sc-bar-outer.active .sc-bar-fill {
-          clip-path: polygon(22% 0, 100% 0, calc(100% - 14px) 100%, calc(22% + 138px) 100%);
+          clip-path: ${isMobile ? "polygon(0 0, 100% 0, calc(100% - 10px) 100%, calc(45% + 40px) 100%)": "polygon(22% 0, 100% 0, calc(100% - 14px) 100%, calc(22% + 138px) 100%)"};
         }
 
         /* shade on the left edge of the white fill */
@@ -295,7 +314,7 @@ export default function Blogs() {
           align-items: left;
           justify-content: center;
           gap: 3px;
-          padding-left: 230px;
+          padding-left: ${isMobile ? "15px" : "230px"};
         }
         .sc-main-top {
           display: flex;
@@ -305,8 +324,8 @@ export default function Blogs() {
 
         .sc-icon {
           font-family: 'Bebas Neue', sans-serif;
-          font-size: 22px;
-          width: 32px;
+  font-size: ${isMobile ? "16px" : "22px"};
+  width: ${isMobile ? "auto" : "32px"};
           text-align: center;
           flex-shrink: 0;
           color: rgba(255,255,255,0.15);
@@ -317,8 +336,8 @@ export default function Blogs() {
 
         .sc-label {
           font-family: 'Bebas Neue', sans-serif;
-          font-size: 28px;
-          letter-spacing: 4px;
+  font-size: ${isMobile ? "18px" : "28px"};
+  letter-spacing: ${isMobile ? "1px" : "4px"};
           line-height: 1;
           color: rgba(255,255,255,0.85);
           transition: color 0.2s ease;
@@ -358,10 +377,10 @@ export default function Blogs() {
         .sc-char {
           position: absolute;
           top: 0;
-          left: 110px;
+          left: ${isMobile ? "-5px" : "110px"};
           height: 100%;
           width: auto;
-          max-width: 160px;
+          max-width: ${isMobile ? "70px" : "160px"};
           object-fit: cover;
           object-position: top;
           pointer-events: none;
@@ -376,8 +395,8 @@ export default function Blogs() {
         }
         .sc-right-nav {
           position: absolute;
-          top: 10vh;
-          left: 6vw;
+          top: ${isMobile ? "3vh" : "10vh"};
+          left: ${isMobile ? "1vh" : "6vw"};
           display: flex;
           align-items: center;
           gap: 6px;
@@ -389,7 +408,7 @@ export default function Blogs() {
         }
         .sc-right-nav .sc-nav-btn {
           font-family: 'Bebas Neue', sans-serif;
-          font-size: 100px;
+          font-size: ${isMobile ? "70px" : "100px"};
           letter-spacing: 3px;
           line-height: 1;
           user-select: none;
@@ -455,10 +474,10 @@ export default function Blogs() {
         }
         .resume-detail-panel {
           position: absolute;
-          top: 9.5vh;
-          right: 7.5vw;
-          width: min(39vw, 960px);
-          min-height: 80vh;
+          top: ${isMobile ? "28vh" : "9.5vh"};
+          right: ${isMobile ? "2.5vw" : "7.5vw"};
+          width: ${isMobile ? "95vw" : "min(39vw, 960px)"};
+          min-height: ${isMobile ? "65vh" : "80vh"};
           z-index: 12;
           padding: 22px 24px 24px 24px;
           background: linear-gradient(180deg, rgba(15, 28, 105, 0.96) 0%, rgba(8, 16, 68, 0.97) 100%);
@@ -578,7 +597,7 @@ export default function Blogs() {
 
         return (
           <div
-            key={item.id}
+            key={`${item.label}-${realIndex}`}
             className={`sc-bar-outer${active === realIndex ? " active" : ""}${mounted ? " mounted" : ""}`}
             onClick={() => {
               setActive(realIndex);
@@ -630,12 +649,13 @@ export default function Blogs() {
           ))}
       </div>
     </div>
-    <div className={`sc-hint${mounted ? " mounted" : ""}`}>
-      <div className="sc-hint-row"><span className="sc-hint-key">↑↓</span><span>SELECT</span></div>
-      <div className="sc-hint-row"><span className="sc-hint-key">↵</span><span>OPEN</span></div>
-      <div className="sc-hint-row"><span className="sc-hint-key">ESC</span><span>BACK</span></div>
-    </div>
-      
+    {!isMobile && (
+      <div className={`sc-hint${mounted ? " mounted" : ""}`}>
+        <div className="sc-hint-row"><span className="sc-hint-key">↑↓</span><span>SELECT</span></div>
+        <div className="sc-hint-row"><span className="sc-hint-key">↵</span><span>OPEN</span></div>
+        <div className="sc-hint-row"><span className="sc-hint-key">ESC</span><span>BACK</span></div>
+      </div>
+    )}
   </div>
   );
 }
